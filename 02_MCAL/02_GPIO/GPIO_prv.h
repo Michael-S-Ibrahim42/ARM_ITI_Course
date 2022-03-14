@@ -1,0 +1,38 @@
+/* **************************************************************************************
+**       Author      :	Michael S. Ibrahim
+**       Date        :	March 12, 2022
+**       Version     :	V01
+**       SWC         :	GPIO
+**       Description :	GPIO module files
+** **************************************************************************************/
+#ifndef _GPIO_PRV_H
+#define _GPIO_PRV_H
+
+  /* ********************************************************************************* */
+  /* *********************** Shift Masks ********************************************* */
+  #define GPIO_u8BIT0                         0
+  #define GPIO_u8BIT1                         2
+  #define GPIO_u8BIT2                         4
+  #define GPIO_u8BIT3                         6
+  #define GPIO_u8BIT4                         8
+  #define GPIO_u8BIT5                         10
+  #define GPIO_u8BIT6                         12
+  #define GPIO_u8BIT7                         14
+  #define GPIO_u8BIT8                         16
+  #define GPIO_u8BIT9                         18
+  #define GPIO_u8BIT10                        20
+  #define GPIO_u8BIT11                        22
+  #define GPIO_u8BIT12                        24
+  #define GPIO_u8BIT13                        26
+  #define GPIO_u8BIT14                        28
+  #define GPIO_u8BIT15                        30
+  
+  /* ********************************************************************************* */
+
+
+
+
+
+
+
+#endif

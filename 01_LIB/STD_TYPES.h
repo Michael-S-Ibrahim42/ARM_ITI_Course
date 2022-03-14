@@ -19,6 +19,7 @@
   typedef float                     f32;
   typedef double                    f64;
   typedef u8*                       pu8;
+  typedef u16*                      pu16;
   /* NULL Pointer */
   #define NULL                      ((void*)0)
 #endif

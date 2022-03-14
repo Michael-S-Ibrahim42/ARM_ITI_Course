@@ -6,7 +6,6 @@
 **       Description :	RCC module files for STM32F401CC
 ** **************************************************************************************/
 #include "STD_TYPES.h"
-#include "BIT_MATH.h"
 #include "STM32F401CC.h"
 #include "RCC.h"
 #include "RCC_prv.h"
@@ -74,22 +73,22 @@ RCC_tenuStatus RCC_enuRetClkRDY(u8 Copy_u8Clk, pu8 Copy_pu8ClkRDY)
   {
     if(Copy_u8Clk == RCC_u8HSI)
     {
-      *Copy_pu8ClkRDY = (RCC_pstrRegisters->CR) | RCC_u32HSI_RDY_M;
+      *Copy_pu8ClkRDY = (RCC_pstrRegisters->CR) & RCC_u32HSI_RDY_M;
     }/* if */
-    else if(Copy_u8Clk == RCC_u8HSE)
-    { 
-      *Copy_pu8ClkRDY = (RCC_pstrRegisters->CR) | RCC_u32HSE_RDY_M;
+    else if((Copy_u8Clk == RCC_u8HSE_CRYSTAL) || (Copy_u8Clk == RCC_u8HSE_RC))
+    {
+      *Copy_pu8ClkRDY = (RCC_pstrRegisters->CR) & RCC_u32HSE_RDY_M;
     }/* else if */
     else if(Copy_u8Clk == RCC_u8PLL)
     {
-      *Copy_pu8ClkRDY = (RCC_pstrRegisters->CR) | RCC_u32PLL_RDY_M;
+      *Copy_pu8ClkRDY = (RCC_pstrRegisters->CR) & RCC_u32PLL_RDY_M;
     }/* else if */
-    else 
+    else
     {
       Loc_u8Error = RCC_enuNok;
     }/* else */
   }/* if */
-  else 
+  else
   {
     Loc_u8Error = RCC_enuNok;
   }/* else */
@@ -111,9 +110,13 @@ RCC_tenuStatus RCC_enuTurnClk(u8 Copy_u8Clk, RCC_tenuTurn Copy_enuTurnStat)
     {
       (RCC_pstrRegisters->CR) |= (RCC_u32HSI_ON_M);
     }/* if */
-    else if(Copy_u8Clk == RCC_u8HSE)
+    else if(Copy_u8Clk == RCC_u8HSE_CRYSTAL)
     {
-      (RCC_pstrRegisters->CR) |= (RCC_u32HSE_ON_M);
+      (RCC_pstrRegisters->CR) |= (RCC_u32HSE_CRYSTAL_ON_M);
+    }/* else if */
+    else if(Copy_u8Clk == RCC_u8HSE_RC)
+    {
+      (RCC_pstrRegisters->CR) |= (RCC_u32HSE_RC_ON_M);
     }/* else if */
     else if(Copy_u8Clk == RCC_u8PLL)
     {
@@ -129,9 +132,13 @@ RCC_tenuStatus RCC_enuTurnClk(u8 Copy_u8Clk, RCC_tenuTurn Copy_enuTurnStat)
     {
       (RCC_pstrRegisters->CR) &= ~(RCC_u32HSI_ON_M);
     }/* if */
-    else if(Copy_u8Clk == RCC_u8HSE)
+    else if(Copy_u8Clk == RCC_u8HSE_CRYSTAL)
     {
-      (RCC_pstrRegisters->CR) &= ~(RCC_u32HSE_ON_M);
+      (RCC_pstrRegisters->CR) &= ~(RCC_u32HSE_CRYSTAL_ON_M);
+    }/* else if */
+    else if(Copy_u8Clk == RCC_u8HSE_RC)
+    {
+      (RCC_pstrRegisters->CR) &= ~(RCC_u32HSE_RC_ON_M);
     }/* else if */
     else if(Copy_u8Clk == RCC_u8PLL)
     {
@@ -149,8 +156,8 @@ RCC_tenuStatus RCC_enuTurnClk(u8 Copy_u8Clk, RCC_tenuTurn Copy_enuTurnStat)
   return (Loc_enuError);
 } /* RCC_enuTurnClk */
 
-/*  Control clk of each peripheral 
-   First Parameter Options are in RCC.h under the comment "Peripherals Ids" 
+/*  Control clk of each peripheral
+   First Parameter Options are in RCC.h under the comment "Peripherals Ids"
    Second Parameter Options are in RCC.h under the comment "TurnStat Arguments"
 */
 RCC_tenuStatus RCC_enuPerClk(RCC_tenuPer Copy_enuPeripheral, RCC_tenuTurn Copy_enuTurnStat)
@@ -219,22 +226,22 @@ RCC_tenuStatus RCC_enuConfigPLL(RCC_tstrPLLConfig* Copy_pstrPLLConfig)
   u8 Loc_u8Pll_P = RCC_u8PLL_P_BASE + ((Copy_pstrPLLConfig->P)/2-1);
   if(Copy_pstrPLLConfig != NULL)
   {
-    Loc_u32Temp |= (((Copy_pstrPLLConfig->Source)<<22) | ((Copy_pstrPLLConfig->P)<<16) | ((Copy_pstrPLLConfig->N)<<6) | (Copy_pstrPLLConfig->M));
-    RCC_pstrRegisters->PLLCFGR = Loc_u32Temp; 
+    Loc_u32Temp |= (((Copy_pstrPLLConfig->Source)<<22) | (Loc_u8Pll_P<<16) | ((Copy_pstrPLLConfig->N)<<6) | (Copy_pstrPLLConfig->M));
+    RCC_pstrRegisters->PLLCFGR = Loc_u32Temp;
   }/* if */
   else
   {
     Loc_enuError = RCC_enuNok;
   }/* else */
-  
+
   return (Loc_enuError);
 } /* RCC_enuConfigPLL */
-/* Select system clk 
+/* Select system clk
+    Describtion: Select the system clk but if you want PLL, you have to full configure it before and configure HSE also if you will need it
     Return: Error Status
     First Parameter Options are in RCC.h under the comment "Sys Clk" which is the needed clk
-    Second Parameter Options are in RCC.h under the comment "PLL Configurations" if you don't want to use pll send "NULL"
 */
-RCC_tenuStatus RCC_enuSelectSysClk(u8 Copy_u8SysClk, RCC_tstrPLLConfig* Copy_pstrPLLConfig)
+RCC_tenuStatus RCC_enuSelectSysClk(u8 Copy_u8SysClk)
 {
   RCC_tenuStatus Loc_enuError = RCC_enuOk;
   u8 Loc_u8RDY = 0;
@@ -259,7 +266,7 @@ RCC_tenuStatus RCC_enuSelectSysClk(u8 Copy_u8SysClk, RCC_tstrPLLConfig* Copy_pst
     Loc_u32Temp |= RCC_u32SET_HSI_M;
     RCC_pstrRegisters->CFGR = Loc_u32Temp;
     Loc_u16TimeOut = 0;
-    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_HSI_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT)) 
+    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_HSI_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT))
     {
       Loc_u16TimeOut++;
     }/* while */
@@ -269,13 +276,12 @@ RCC_tenuStatus RCC_enuSelectSysClk(u8 Copy_u8SysClk, RCC_tstrPLLConfig* Copy_pst
     }/* if */
     break;
   case(RCC_u8RUN_HSE_CRYSTAL):
-    RCC_pstrRegisters->CR &= RCC_u32HSE_NO_BYPASS;
-    RCC_enuTurnClk(RCC_u8HSE, RCC_enuOn);
-    RCC_enuRetClkRDY(RCC_u8HSE, &Loc_u8RDY);
+    RCC_enuTurnClk(RCC_u8HSE_CRYSTAL, RCC_enuOn);
+    RCC_enuRetClkRDY(RCC_u8HSE_CRYSTAL, &Loc_u8RDY);
     Loc_u16TimeOut = 0;
     while(!Loc_u8RDY && (Loc_u16TimeOut != RCC_u16TIME_OUT))
     {
-      RCC_enuRetClkRDY(RCC_u8HSE, &Loc_u8RDY);
+      RCC_enuRetClkRDY(RCC_u8HSE_CRYSTAL, &Loc_u8RDY);
       Loc_u16TimeOut++;
     }/* while */
     if(Loc_u16TimeOut == RCC_u16TIME_OUT)
@@ -286,23 +292,22 @@ RCC_tenuStatus RCC_enuSelectSysClk(u8 Copy_u8SysClk, RCC_tstrPLLConfig* Copy_pst
     Loc_u32Temp |= RCC_u32SET_HSE_M;
     RCC_pstrRegisters->CFGR = Loc_u32Temp;
     Loc_u16TimeOut = 0;
-    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_HSE_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT)) 
+    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_HSE_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT))
     {
       Loc_u16TimeOut++;
     }/* while */
     if(Loc_u16TimeOut == RCC_u16TIME_OUT)
     {
       Loc_enuError = RCC_enuNok;
-    }/* if */    
+    }/* if */
     break;
   case(RCC_u8RUN_HSE_RC):
-    RCC_pstrRegisters->CR |= RCC_u32HSE_BYPASS;
-    RCC_enuTurnClk(RCC_u8HSE, RCC_enuOn);
-    RCC_enuRetClkRDY(RCC_u8HSE, &Loc_u8RDY);
+    RCC_enuTurnClk(RCC_u8HSE_RC, RCC_enuOn);
+    RCC_enuRetClkRDY(RCC_u8HSE_RC, &Loc_u8RDY);
     Loc_u16TimeOut = 0;
     while(!Loc_u8RDY && (Loc_u16TimeOut != RCC_u16TIME_OUT))
     {
-      RCC_enuRetClkRDY(RCC_u8HSE, &Loc_u8RDY);
+      RCC_enuRetClkRDY(RCC_u8HSE_RC, &Loc_u8RDY);
       Loc_u16TimeOut++;
     }/* while */
     if(Loc_u16TimeOut == RCC_u16TIME_OUT)
@@ -313,16 +318,16 @@ RCC_tenuStatus RCC_enuSelectSysClk(u8 Copy_u8SysClk, RCC_tstrPLLConfig* Copy_pst
     Loc_u32Temp |= RCC_u32SET_HSE_M;
     RCC_pstrRegisters->CFGR = Loc_u32Temp;
     Loc_u16TimeOut = 0;
-    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_HSE_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT)) 
+    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_HSE_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT))
     {
       Loc_u16TimeOut++;
     }/* while */
     if(Loc_u16TimeOut == RCC_u16TIME_OUT)
     {
       Loc_enuError = RCC_enuNok;
-    }/* if */        
+    }/* if */
     break;
-  case(RCC_u8RUN_PLL_HSI):
+  case(RCC_u8RUN_PLL):
     RCC_enuTurnClk(RCC_u8PLL, RCC_enuOn);
     RCC_enuRetClkRDY(RCC_u8PLL, &Loc_u8RDY);
     Loc_u16TimeOut = 0;
@@ -339,68 +344,14 @@ RCC_tenuStatus RCC_enuSelectSysClk(u8 Copy_u8SysClk, RCC_tstrPLLConfig* Copy_pst
     Loc_u32Temp |= RCC_u32SET_PLL_M;
     RCC_pstrRegisters->CFGR = Loc_u32Temp;
     Loc_u16TimeOut = 0;
-    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_PLL_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT)) 
+    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_PLL_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT))
     {
-      Loc_u16TimeOut++;
-    }/* while */
-    if(Loc_u16TimeOut == RCC_u16TIME_OUT)
-    {
-      Loc_enuError = RCC_enuNok;
-    }/* if */        
-    break;
-  case(RCC_u8RUN_PLL_HSE_CRYSTAL):
-    RCC_pstrRegisters->CR &= RCC_u32HSE_NO_BYPASS;
-    RCC_enuTurnClk(RCC_u8PLL, RCC_enuOn);
-    RCC_enuRetClkRDY(RCC_u8PLL, &Loc_u8RDY);
-    Loc_u16TimeOut = 0;
-    while(!Loc_u8RDY && (Loc_u16TimeOut != RCC_u16TIME_OUT))
-    {
-      RCC_enuRetClkRDY(RCC_u8PLL, &Loc_u8RDY);
       Loc_u16TimeOut++;
     }/* while */
     if(Loc_u16TimeOut == RCC_u16TIME_OUT)
     {
       Loc_enuError = RCC_enuNok;
     }/* if */
-    Loc_u32Temp = RCC_pstrRegisters->CFGR & RCC_u32CLR_SYSCLK_M;
-    Loc_u32Temp |= RCC_u32SET_PLL_M;
-    RCC_pstrRegisters->CFGR = Loc_u32Temp;
-    Loc_u16TimeOut = 0;
-    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_PLL_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT)) 
-    {
-      Loc_u16TimeOut++;
-    }/* while */
-    if(Loc_u16TimeOut == RCC_u16TIME_OUT)
-    {
-      Loc_enuError = RCC_enuNok;
-    }/* if */        
-    break;
-  case(RCC_u8RUN_PLL_HSE_RC):
-    RCC_pstrRegisters->CR |= RCC_u32HSE_BYPASS;
-    RCC_enuTurnClk(RCC_u8PLL, RCC_enuOn);
-    RCC_enuRetClkRDY(RCC_u8PLL, &Loc_u8RDY);
-    Loc_u16TimeOut = 0;
-    while(!Loc_u8RDY && (Loc_u16TimeOut != RCC_u16TIME_OUT))
-    {
-      RCC_enuRetClkRDY(RCC_u8PLL, &Loc_u8RDY);
-      Loc_u16TimeOut++;
-    }/* while */
-    if(Loc_u16TimeOut == RCC_u16TIME_OUT)
-    {
-      Loc_enuError = RCC_enuNok;
-    }/* if */
-    Loc_u32Temp = RCC_pstrRegisters->CFGR & RCC_u32CLR_SYSCLK_M;
-    Loc_u32Temp |= RCC_u32SET_PLL_M;
-    RCC_pstrRegisters->CFGR = Loc_u32Temp;
-    Loc_u16TimeOut = 0;
-    while(((RCC_pstrRegisters->CFGR & RCC_u32TEST_SYSCLK_M) != RCCu32TEST_PLL_M) && (Loc_u16TimeOut != RCC_u16TIME_OUT)) 
-    {
-      Loc_u16TimeOut++;
-    }/* while */
-    if(Loc_u16TimeOut == RCC_u16TIME_OUT)
-    {
-      Loc_enuError = RCC_enuNok;
-    }/* if */        
     break;
   default:
     Loc_enuError = RCC_enuNok;

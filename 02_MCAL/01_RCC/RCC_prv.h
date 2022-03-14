@@ -22,7 +22,8 @@
     #define RCC_u32HSE_RDY_M                              0x00020000
     #define RCC_u32PLL_RDY_M                              0x02000000
     #define RCC_u32HSI_ON_M                               0x00000001
-    #define RCC_u32HSE_ON_M                               0x00010000
+    #define RCC_u32HSE_CRYSTAL_ON_M                       0x00010000
+    #define RCC_u32HSE_RC_ON_M                            0x00050000
     #define RCC_u32PLL_ON_M                               0x01000000
     #define RCC_u32SET_HSI_M                              0x00000000                         
     #define RCC_u32SET_HSE_M                              0x00000001      
