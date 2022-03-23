@@ -17,6 +17,7 @@
     GPIO_enuOk = 0,
     GPIO_enuNok
   }GPIO_tenuStatus;
+  /* Pin Level */
   typedef enum
   {
     GPIO_enuLow = 0,
@@ -31,6 +32,7 @@
     u16 Pins;       /* select of the 'Available Pins' in GPIO.h           , under 'STD types options' section*/
     u16 Port;       /* select of the 'Available Ports' in GPIO.h          , under 'STD types options' section*/
   }GPIO_tstrPinConfig;
+  /* Pins selection structure */
   typedef struct 
   {
     u16 Pins;       /* select of the 'Available Pins' in GPIO.h           , under 'STD types options' section*/
@@ -98,12 +100,32 @@
   */
   GPIO_tenuStatus GPIO_enuSetPinValue(GPIO_tstrPin* Copy_pstrPin, GPIO_tenuPinLevel Copy_enuPinLevel);
   /* 
+    Fn: set and reset the passed pins
+    Return:     'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Error Types' section
+    Parameter1: 'GPIO_tstrPin' structure defining the pins to be set, possible values are in GPIO.h under 'Pins selection structure' section
+    Parameter2: 'GPIO_tstrPin' structure defining the pins to be reset, possible values are in GPIO.h under 'Pins selection structure' section
+  */
+  GPIO_tenuStatus GPIO_enuSetResetPins(GPIO_tstrPin* Copy_pstrSetPins, GPIO_tstrPin* Copy_pstrResetPins);
+  /* 
     Fn: return the passed pin input value
-    Return: 'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Defined Types' section
+    Return: 'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Error Types' section
     Parameter1: 'GPIO_tstrPin' structure defining the pin, possible values are in GPIO.h under 'Defined Types' section
     Parameter2: pointer to u8 variable to store the pin value
   */
   GPIO_tenuStatus GPIO_enuGetPinValue(GPIO_tstrPin* Copy_pstrPin, pu16 Copy_pu16PinValue);
+  /* 
+    Fn: Lock the passed pins configuration tell next reset
+    Return:     'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Error Types' section
+    Parameter1: 'GPIO_tstrPin' structure defining the pins, possible values are in GPIO.h under 'Pins selection structure' section
+  */
+  GPIO_tenuStatus GPIO_enuLockPinConfig(GPIO_tstrPin* Copy_pstrPin);
+  /* 
+    Fn        :  Select the pin alternate function
+    Return    :  'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Error Types' section
+    Parameter1:  'GPIO_tstrPin' structure defining the pins, possible values are in GPIO.h under 'Pins selection structure' section
+    Parameter2:  The alternate function number, options are from 0(defaule=GPIO) to 15 
+  */
+  GPIO_tenuStatus GPIO_enuSelectAF(GPIO_tstrPin* Copy_pstrPin, u8 Copy_u8AF);
 
   /* ********************************************************************************* */
   /* ********************************************************************************* */

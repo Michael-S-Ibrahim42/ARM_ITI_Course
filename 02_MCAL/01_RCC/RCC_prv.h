@@ -27,14 +27,12 @@
     #define RCC_u32PLL_ON_M                               0x01000000
     #define RCC_u32SET_HSI_M                              0x00000000                         
     #define RCC_u32SET_HSE_M                              0x00000001      
-    #define RCC_u32SET_PLL_M                              0x00000010          
-    #define RCC_u32CLR_SYSCLK_M                           0x11111100          
-    #define RCC_u32TEST_SYSCLK_M                          0x00001100      
+    #define RCC_u32SET_PLL_M                              0x00000002          
+    #define RCC_u32CLR_SYSCLK_M                           0xFFFFFFFC          
+    #define RCC_u32TEST_SYSCLK_M                          0x0000000C      
     #define RCCu32TEST_HSI_M                              0x00000000      
-    #define RCCu32TEST_HSE_M                              0x00000100      
-    #define RCCu32TEST_PLL_M                              0x00001000  
-    #define RCC_u32HSE_NO_BYPASS                          0xFFFBFFFF
-    #define RCC_u32HSE_BYPASS                             0x00040000
+    #define RCCu32TEST_HSE_M                              0x00000004      
+    #define RCCu32TEST_PLL_M                              0x00000008  
     /* ******************************************************************************************** */
 
 #endif

@@ -257,6 +257,194 @@ GPIO_tenuStatus GPIO_enuGetPinValue(GPIO_tstrPin* Copy_pstrPin, pu16 Copy_pu16Pi
   }/* else */
   return(Loc_enuStatus);/* Returning the error status of the fn */
 }/* GPIO_enuGetPinValue */
+/* 
+  Fn: set and reset the passed pins
+  Return:     'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Error Types' section
+  Parameter1: 'GPIO_tstrPin' structure defining the pins to be set, possible values are in GPIO.h under 'Pins selection structure' section
+  Parameter2: 'GPIO_tstrPin' structure defining the pins to be reset, possible values are in GPIO.h under 'Pins selection structure' section
+  ****Caution****: The port you send in the SetPins is the dominant port (will be selected for reset)
+*/
+GPIO_tenuStatus GPIO_enuSetResetPins(GPIO_tstrPin* Copy_pstrSetPins, GPIO_tstrPin* Copy_pstrResetPins)
+{
+  GPIO_tenuStatus Loc_enuError = GPIO_enuOk;/* Initializing the error variable */
+  GPIO_tstrRegisters* Loc_pstrGPIO;
+  if((Copy_pstrSetPins != NULL) && (Copy_pstrResetPins != NULL))/* validate passed Arguments */
+  {
+    Loc_pstrGPIO = (GPIO_tstrRegisters*)(GPIO_u32BASE_ADD+Copy_pstrSetPins->Port); /* Defining a pointer the required port registers */
+    Loc_pstrGPIO->BSRR = (Copy_pstrSetPins->Pins) | (Copy_pstrResetPins->Pins << GPIO_u8SHIFT_VAL);
+  }/* if */
+  else
+  {
+    Loc_enuError = GPIO_enuNok;
+  }/* else */ 
 
+  return(Loc_enuError); /* returning the error status */
+}/* GPIO_enuSetResetPins */
+/* 
+  Fn: Lock the passed pins configuration tell next reset
+  Return:     'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Error Types' section
+  Parameter1: 'GPIO_tstrPin' structure defining the pins, possible values are in GPIO.h under 'Pins selection structure' section
+*/
+GPIO_tenuStatus GPIO_enuLockPinConfig(GPIO_tstrPin* Copy_pstrPin)
+{
+  GPIO_tenuStatus Loc_enuError = GPIO_enuOk;/* Initial error variable */
+  u32 Loc_u32Temp = GPIO_u32TEMP_INIT;
+  GPIO_tstrRegisters* Loc_pstrRegisters;
+  if(Copy_pstrPin != NULL) /* Validating arguments */
+  {
+    Loc_pstrRegisters = (GPIO_tstrRegisters*)(GPIO_u32BASE_ADD+Copy_pstrPin->Port);
+    Loc_u32Temp = Copy_pstrPin->Pins;/* Applying the bits to lock its config */
+    Loc_pstrRegisters->LCKR = Loc_u32Temp;
+    /* Applying the locking sequence */
+    Loc_u32Temp |= GPIO_u32LCK_MASK;/* Applying '1' */
+    Loc_pstrRegisters->LCKR = Loc_u32Temp;
+    Loc_u32Temp &= ~GPIO_u32LCK_MASK;/* Applying '0' */
+    Loc_pstrRegisters->LCKR = Loc_u32Temp;
+    Loc_u32Temp |= GPIO_u32LCK_MASK;/* Applying '1' */
+    Loc_pstrRegisters->LCKR = Loc_u32Temp;
+    Loc_u32Temp  = Loc_pstrRegisters->LCKR;
+    Loc_u32Temp  = Loc_pstrRegisters->LCKR;
+  }/* if */
+  else
+  {
+    Loc_enuError = GPIO_enuNok;
+  }/* else */
+
+  return(Loc_enuError);/* Returning Error status */
+}/* GPIO_enuLockPinConfig */
+/* 
+  Fn        :  Select the pin alternate function
+  Return    :  'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Error Types' section
+  Parameter1:  'GPIO_tstrPin' structure defining the pins, possible values are in GPIO.h under 'Pins selection structure' section
+  Parameter2:  The alternate function number, options are from 0(defaule=GPIO) to 15 
+*/
+GPIO_tenuStatus GPIO_enuSelectAF(GPIO_tstrPin* Copy_pstrPin, u8 Copy_u8AF)
+{
+  u32 Loc_u32Temp;
+  GPIO_tenuStatus Loc_enuError = GPIO_enuOk;
+  GPIO_tstrRegisters* Loc_pstrRegisters;
+  if((Copy_pstrPin != NULL) && (Copy_u8AF <= 15)) /* Validate Arguments */
+  {
+    Loc_pstrRegisters = (GPIO_tstrRegisters*)(GPIO_u32BASE_ADD+Copy_pstrPin->Port);
+    if(Copy_pstrPin->Pins&GPIO_u16PIN0)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRL;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT0));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT0);
+      Loc_pstrRegisters->AFRL = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN1)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRL;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT1));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT1);
+      Loc_pstrRegisters->AFRL = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN2)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRL;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT2));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT2);
+      Loc_pstrRegisters->AFRL = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN3)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRL;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT3));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT3);
+      Loc_pstrRegisters->AFRL = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN4)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRL;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT4));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT4);
+      Loc_pstrRegisters->AFRL = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN5)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRL;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT5));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT5);
+      Loc_pstrRegisters->AFRL = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN6)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRL;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT6));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT6);
+      Loc_pstrRegisters->AFRL = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN7)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRL;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT7));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT7);
+      Loc_pstrRegisters->AFRL = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN8)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRH;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT8));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT8);
+      Loc_pstrRegisters->AFRH = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN9)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRH;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT9));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT9);
+      Loc_pstrRegisters->AFRH = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN10)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRH;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT10));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT10);
+      Loc_pstrRegisters->AFRH = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN11)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRH;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT11));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT11);
+      Loc_pstrRegisters->AFRH = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN12)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRH;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT12));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT12);
+      Loc_pstrRegisters->AFRH = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN13)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRH;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT13));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT13);
+      Loc_pstrRegisters->AFRH = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN14)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRH;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT14));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT14);
+      Loc_pstrRegisters->AFRH = Loc_u32Temp;
+    }/* if */
+    if(Copy_pstrPin->Pins&GPIO_u16PIN15)
+    {
+      Loc_u32Temp = Loc_pstrRegisters->AFRH;
+      Loc_u32Temp &= (~(GPIO_u8SET_4BIT << GPIO_u8AF_BIT15));
+      Loc_u32Temp |= (Copy_u8AF << GPIO_u8AF_BIT15);
+      Loc_pstrRegisters->AFRH = Loc_u32Temp;
+    }/* if */      
+  }/* if */
+  else
+  {
+    Loc_enuError = GPIO_enuNok;
+  }/* else */
+
+  return(Loc_enuError);
+}/* GPIO_enuSelectAF */
 /* ******************************************************************************************* */
 /* ******************************************************************************************* */
