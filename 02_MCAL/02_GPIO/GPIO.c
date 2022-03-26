@@ -36,145 +36,146 @@ GPIO_tenuStatus GPIO_enuInitPin(GPIO_tstrPinConfig* Copy_pstrPinConfig)
     /* Setting the mode and output speed of the passed pins */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN0)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT0);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT0);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT0);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT0);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT0);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT0);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT0);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT0);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT0);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN1)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT1);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT1);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT1);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT1);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT1);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT1);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT1);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT1);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT1);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN2)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT2);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT2);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT2);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT2);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT2);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT2);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT2);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT2);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT2);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN3)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT3);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT3);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT3);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT3);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT3);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT3);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT3);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT3);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT3);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN4)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT4);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT4);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT4);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT4);
+      Loc_u32SpeedTemp &= ~(Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT4);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT4);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT4);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT4);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT4);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN5)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT5);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT5);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT5);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT5);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT5);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT5);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT5);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT5);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT5);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN6)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT6);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT6);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT6);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT6);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT6);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT6);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT6);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT6);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT6);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN7)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT7);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT7);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT7);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT7);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT7);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT7);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT7);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT7);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT7);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN8)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT8);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT8);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT8);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT8);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT8);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT8);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT8);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT8);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT8);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN9)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT9);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT9);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT9);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT9);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT9);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT9);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT9);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT9);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT9);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN10)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT10);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT10);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT10);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT10);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT10);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT10);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT10);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT10);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT10);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN11)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT11);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT11);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT11);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT11);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT11);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT11);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT11);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT11);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT11);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN12)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT12);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT12);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT12);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT12);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT12);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT12);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT12);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT12);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT12);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN13)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT13);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT13);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT13);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT13);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT13);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT13);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT13);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT13);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT13);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN14)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT14);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT14);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT14);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT14);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT14);
       Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT14);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT14);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT14);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT14);
     }/* if */
     if(Copy_pstrPinConfig->Pins&GPIO_u16PIN15)
     {
-      Loc_u32ModeTemp &= (Copy_pstrPinConfig->Mode << GPIO_u8BIT15);
+      Loc_u32ModeTemp &= ~(GPIO_u8CLR_MODE << GPIO_u8BIT15);
       Loc_u32ModeTemp |= (Copy_pstrPinConfig->Mode << GPIO_u8BIT15);
-      Loc_u32SpeedTemp &= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT15);
-      Loc_u32ResistorTemp &= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT15);
+      Loc_u32SpeedTemp &= ~(GPIO_u8CLR_SPEED << GPIO_u8BIT15);
+      Loc_u32SpeedTemp |= (Copy_pstrPinConfig->OutSpeed << GPIO_u8BIT15);
+      Loc_u32ResistorTemp &= ~(GPIO_u8CLR_Resistor << GPIO_u8BIT15);
       Loc_u32ResistorTemp |= (Copy_pstrPinConfig->PullRes << GPIO_u8BIT15);
     }/* if */
     Loc_pstrGPIO->MODER   =  Loc_u32ModeTemp;/* Setting the local variable to the actual register */

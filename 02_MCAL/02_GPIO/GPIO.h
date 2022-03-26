@@ -110,7 +110,7 @@
     Fn: return the passed pin input value
     Return: 'GPIO_tenuStatus' status, possible values are in GPIO.h under 'Error Types' section
     Parameter1: 'GPIO_tstrPin' structure defining the pin, possible values are in GPIO.h under 'Defined Types' section
-    Parameter2: pointer to u8 variable to store the pin value
+    Parameter2: pointer to u16 variable to store the pin value
   */
   GPIO_tenuStatus GPIO_enuGetPinValue(GPIO_tstrPin* Copy_pstrPin, pu16 Copy_pu16PinValue);
   /* 

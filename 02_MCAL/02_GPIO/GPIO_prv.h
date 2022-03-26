@@ -52,6 +52,12 @@
   #define GPIO_u32LCK_MASK                    0x10000
   /* Set Mask */
   #define GPIO_u8SET_4BIT                     0xF
+  /* Clr masks */
+  /* Mode clear mask */
+  #define GPIO_u8CLR_MODE                     0x03
+  #define GPIO_u8CLR_SPEED                    0x07
+  #define GPIO_u8CLR_Resistor                 0x03
+
   
   /* ********************************************************************************* */
 
