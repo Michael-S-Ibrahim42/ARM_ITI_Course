@@ -66,5 +66,15 @@
     volatile u32 AFRH;
   }GPIO_tstrRegisters;
 /* ************************************************************************************ */
+/* ******************************** Systick Timer **************************************** */
+#define M_SYSTICK_u32BASE_ADD                0xE000E010
+typedef struct{
+  volatile u32 CTRL;
+  volatile u32 LOAD;
+  volatile u32 VAL;
+  volatile u32 CALIB;
+}M_Systick_tstrRegisters;
+#define M_SYSTICK_pstrRegisters              ((M_Systick_tstrRegisters*)(M_SYSTICK_u32BASE_ADD))
+/* ************************************************************************************ */
 
 #endif

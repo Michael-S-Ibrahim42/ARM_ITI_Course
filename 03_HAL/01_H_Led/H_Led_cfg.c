@@ -8,18 +8,20 @@
 /* ***************************** Headers Inclusion ********************************* */
 /* LIB headers */
 #include "STD_TYPES.h"
+/* MCAL headers */
+#include "GPIO.h"
 /* Own headers */
-#include "HLED.h"
-#include "HLED_cfg.h"
+#include "H_Led.h"
+#include "H_Led_cfg.h"
 
 /* ********************************************************************************* */
 /* ******************** Configurations Variables *********************************** */
-const HLED_tstrCfg HLED_astrLeds[] = {
-  [HLED_u8BLUE] = {
-    .HLED_u16Port = HLED_u16PORT0,      
-    .HLED_u16Pin = HLED_u16PIN0,       
-    .HLED_u8ActiveState = HLED_u8HIGH_ACTIVE_STATE,
-    .HLED_u8OType = HLED_u8OTYPE_PP      
+const H_Led_tstrCfg H_Led_astrLeds[] = {
+  [H_LED_u8BLUE] = {
+    .Port         = GPIO_u16PORT0,      
+    .Pin          = GPIO_u16PIN0,       
+    .ActiveState  = H_LED_u8HIGH_ACTIVE_STATE,
+    .OType        = GPIO_u8PUSH_PULL      
   },
 };
 
