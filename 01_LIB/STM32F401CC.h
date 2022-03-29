@@ -76,5 +76,25 @@ typedef struct{
 }M_Systick_tstrRegisters;
 #define M_SYSTICK_pstrRegisters              ((M_Systick_tstrRegisters*)(M_SYSTICK_u32BASE_ADD))
 /* ************************************************************************************ */
+/* ******************************** NVIC ********************************************** */
+#define M_NVIC_u32BASE_ADD                    0xE000E100
+typedef struct
+{
+  volatile u32 ISER[8];
+  volatile u32 Reserved1[24];
+  volatile u32 ICER[8];
+  volatile u32 Reserved2[24];
+  volatile u32 ISPR[8];
+  volatile u32 Reserved3[24];
+  volatile u32 ICPR[8];
+  volatile u32 Reserved4[24];
+  volatile u32 IABR[8];
+  volatile u32 Reserved5[56];
+  volatile u8  IPR[240];
+  volatile u32 Reserved6[580];
+  volatile u32 STIR;
+}M_NVIC_tstrRegisters;
+#define M_NVIC_strRegisters                   ((M_NVIC_tstrRegisters*)(M_NVIC_u32BASE_ADD))
+/* ************************************************************************************ */
 
 #endif
