@@ -22,4 +22,15 @@
   typedef u16*                      pu16;
   /* NULL Pointer */
   #define NULL                      ((void*)0)
+  /* Truthness Values */
+  #define FALSE                     0
+  #define TRUE                      1
+  /* Remainder result */
+  #define ZERO_REM                  0
+  /* Compare Values */
+  #define ZERO_COMP                 0
+  /* Flag Values */
+  #define FLAG_LOW                  0
+  #define FLAG_HIGH                 1
+
 #endif

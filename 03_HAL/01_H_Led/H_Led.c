@@ -5,7 +5,6 @@
 **       SWC         :	HLED
 **       Description :	Led module files
 ** **************************************************************************************/
-/* ********************************************************************************* */
 /* ****************************** Headers inclusion ******************************** */
 /* LIB headers */
 #include "STD_TYPES.h"
@@ -77,3 +76,16 @@ H_Led_tenuStatus H_Led_enuSet(u16 Copy_u16LedNum, u8 Copy_u8LedLvl)
   return(Loc_enuError);/* Returning the error status */
 }/* HLED_enuSet */
 /* ********************************************************************************* */
+/* *********************** Runnables *********************************************** */
+/* 
+  Fn         :   Led runnable task
+  Parameters :   void
+  Return     :   void
+  **Caution**:   The leds must be initialized using "H_Led_enuInit" before calling "Sched_vidStart"
+*/  
+void H_Led_vidTask(void)
+{
+  static u8 Loc_u8LedLvl = H_LED_u8ON;
+  H_Led_enuSet(H_LED_u8BLUE, Loc_u8LedLvl);
+  Loc_u8LedLvl ^= H_LED_u8OFF;
+}

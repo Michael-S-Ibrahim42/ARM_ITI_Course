@@ -10,7 +10,7 @@
   /* ************************** Arguments MACROS  **************************************** */
   /* Timer Clk Sources */
   #define M_SYSTICK_u8AHB_OVER_8          0
-  #define M_SYSTICK_u8AHB                 1
+  #define M_SYSTICK_u8AHB                 1 
   /* Timer Interrupt Activation */
   #define M_SYSTICK_u8OFF_INT             0
   #define M_SYSTICK_u8ON_INT              1

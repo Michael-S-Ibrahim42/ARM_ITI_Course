@@ -11,7 +11,7 @@
   #include "H_Led_cfg.h"
   /* ********************************************************************************* */
   /* **************************** MACROS ********************************************* */
-  /* Led levels */
+  /* Led levels */ 
   #define H_LED_u8ON                                    0
   #define H_LED_u8OFF                                   1
   /* led connection active state */                 
@@ -48,6 +48,15 @@
     **Caution**:   The leds must be initialized using "H_Led_enuInit"
   */
   extern H_Led_tenuStatus H_Led_enuSet(u16 Copy_u16LedNum, u8 Copy_u8LedLvl);
+  /* ********************************************************************************* */
+  /* *********************** Runnables *********************************************** */
+  /* 
+    Fn         :   Led runnable task
+    Parameters :   void
+    Return     :   void
+    **Caution**:   The leds must be initialized using "H_Led_enuInit" before calling "Sched_vidStart"
+  */  
+  extern void H_Led_vidTask(void);
   /* ********************************************************************************* */
   /* ********************************************************************************* */
 
