@@ -2,6 +2,6 @@
 **       Author      :	Michael S. Ibrahim
 **       Date        :	March 23, 2022
 **       Version     :	V01
-**       SWC         :	M_Systick
+**       SWC         :	Systick
 **       Description :	Systick timer module files
 ** **************************************************************************************/

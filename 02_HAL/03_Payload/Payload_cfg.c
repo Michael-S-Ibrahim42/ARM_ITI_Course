@@ -7,7 +7,7 @@
 ** **************************************************************************************/
 /* ***************************** Headers Inclusion ********************************* */
 /* LIB headers */
-#include "STD_TYPES.h"
+#include "StdTypes.h"
 /* MCAL headers */
 #include "GPIO.h"
 /* Own headers */
@@ -28,5 +28,3 @@ const Payload_tstrCfg Payload_astrPayloadsSpecs[] = {
   }
 };
 /* ********************************************************************************* */
-    
-   

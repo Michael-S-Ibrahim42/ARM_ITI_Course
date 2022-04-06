@@ -7,7 +7,7 @@
 ** **************************************************************************************/
 /* ****************************** Headers inclusion ******************************** */
 /* LIB headers */
-#include "STD_TYPES.h"
+#include "StdTypes.h"
 #include "STM32F401CC.h"
 /* MCAL headers */
 #include "RCC.h"

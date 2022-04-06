@@ -2,12 +2,12 @@
 **       Author      :	Michael S. Ibrahim
 **       Date        :	February 03, 2022
 **       Version     :	V01
-**       SWC         :	BIT_MATH
+**       SWC         :	BitMath
 **       Description :	Bit Manipulation MACROS
 ** **************************************************************************************/
-#ifndef _BIT_MATH_H
-#define _BIT_MATH_H
-
+#ifndef _BITMATH_H
+#define _BITMATH_H
+  /* //////////////////////////////////// MACROS /////////////////////////////////////////////// */
   #define REG_SIZE                      32
   #define SET_BIT(REG, BIT)             (REG |=  (1 << BIT))
   #define CLR_BIT(REG, BIT)             (REG &= ~(1 << BIT))
@@ -29,6 +29,25 @@
   #define ASSIGN_L_NIB(BYTE, VALUE)     (BYTE |= 0x0F)   
   #define TGL_H_NIB(BYTE)               (BYTE ^= 0xF0)
   #define TGL_L_NIB(BYTE)               (BYTE ^= 0x0F)
-  #define SWAP_NIB(BYTE)                 (BYTE = (BYTE >> 4) | (BYTE << 4))
-
+  #define SWAP_NIB(BYTE)                (BYTE = (BYTE >> 4) | (BYTE << 4))
+  /* /////////////////////////////////////////////////////////////////////////////////////////// */
+  /* ////////////////////////////////// Defined Types ////////////////////////////////////////// */
+  /* Error type */
+  typedef enum
+  {
+    BitMath_enuOk,
+    BitMath_enuNok
+  }BitMath_tenuError;
+  /* /////////////////////////////////////////////////////////////////////////////////////////// */
+  /* /////////////////////////////////// Interface Fns ////////////////////////////////////////// */
+  /* 
+    Fn              :      Division Operation
+    Parameter1      :      Dividend, double data type range
+    Parameter2      :      Divisor, double data type range
+    Parameter3      :      Pointer to double to receive the quotient 
+    Parameter3      :      Pointer to double to receive the remainder
+    return          :      return error status, options are in "BitMath.h" under "Error type"
+  */
+  extern BitMath_tenuError BitMath_enuDivider(f64 Copy_f64Dividend, f64 Copy_f64Divisor, pf64 Copy_pf64Quot, pf64 Copy_pf64Rem); 
+  /* /////////////////////////////////////////////////////////////////////////////////////////// */
 #endif

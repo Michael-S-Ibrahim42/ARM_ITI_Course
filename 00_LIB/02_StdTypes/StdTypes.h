@@ -2,11 +2,11 @@
 **       Author      :	Michael S. Ibrahim
 **       Date        :	February 07, 2022
 **       Version     :	V01
-**       SWC         :	STD_TYPES
+**       SWC         :	StdTypes
 **       Description :	Definition of standard data types
 ** **************************************************************************************/
-#ifndef _STD_TYPES_H
-#define _STD_TYPES_H
+#ifndef _STDTYPES_H
+#define _STDTYPES_H
   /* Defined STD Types */
   typedef unsigned char             u8;
   typedef signed   char             s8;
@@ -20,6 +20,7 @@
   typedef double                    f64;
   typedef u8*                       pu8;
   typedef u16*                      pu16;
+  typedef f64*                      pf64;
   /* NULL Pointer */
   #define NULL                      ((void*)0)
   /* Truthness Values */
@@ -32,5 +33,4 @@
   /* Flag Values */
   #define FLAG_LOW                  0
   #define FLAG_HIGH                 1
-
 #endif

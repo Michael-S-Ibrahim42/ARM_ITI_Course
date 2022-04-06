@@ -67,17 +67,17 @@
   }GPIO_tstrRegisters;
 /* ************************************************************************************ */
 /* ******************************** Systick Timer **************************************** */
-#define M_SYSTICK_u32BASE_ADD                0xE000E010
+#define SYSTICK_u32BASE_ADD                0xE000E010
 typedef struct{
   volatile u32 CTRL;
   volatile u32 LOAD;
   volatile u32 VAL;
   volatile u32 CALIB;
-}M_Systick_tstrRegisters;
-#define M_SYSTICK_pstrRegisters              ((M_Systick_tstrRegisters*)(M_SYSTICK_u32BASE_ADD))
+}Systick_tstrRegisters;
+#define Systick_pstrRegisters              ((Systick_tstrRegisters*)(SYSTICK_u32BASE_ADD))
 /* ************************************************************************************ */
 /* ******************************** NVIC ********************************************** */
-#define M_NVIC_u32BASE_ADD                    0xE000E100
+#define NVIC_u32BASE_ADD                    0xE000E100
 typedef struct
 {
   volatile u32 ISER[8];
@@ -93,8 +93,8 @@ typedef struct
   volatile u8  IPR[240];
   volatile u32 Reserved6[580];
   volatile u32 STIR;
-}M_NVIC_tstrRegisters;
-#define M_NVIC_strRegisters                   ((M_NVIC_tstrRegisters*)(M_NVIC_u32BASE_ADD))
+}NVIC_tstrRegisters;
+#define NVIC_strRegisters                   ((NVIC_tstrRegisters*)(NVIC_u32BASE_ADD))
 /* ************************************************************************************ */
 
 #endif

@@ -2,19 +2,15 @@
 **       Author      :	Michael S. Ibrahim
 **       Date        :	March 23, 2022
 **       Version     :	V01
-**       SWC         :	M_Systick
+**       SWC         :	Systick
 **       Description :	Systick timer module files
 ** **************************************************************************************/
-#ifndef _M_SYSTICK_CFG_H
-#define _M_SYSTICK_CFG_H
+#ifndef _SYSTICK_CFG_H
+#define _SYSTICK_CFG_H
   /* ********************* Configuration MACROS ****************************************** */
   /* The used clock */
   /* enter used clock in 'MHZ' */
-  #define M_SYSTICK_u8CLOCK                       16
+  #define SYSTICK_u8CLOCK                       16
   /* ************************************************************************************* */
-  /* ************************************************************************************* */
-  /* ************************************************************************************* */
-
-
 
 #endif

@@ -7,7 +7,6 @@
 ** **************************************************************************************/
 #ifndef _RCC_PRV_H
 #define _RCC_PRV_H
-
     /* *************************** Limit Values ************************************************* */
     #define RCC_u8AHB_PRE_INIT                              0b0110/* Prescalar initial value */
     #define RCC_u8APB_PRE_INIT                              0b010 /* Prescalar initial value */
@@ -34,5 +33,4 @@
     #define RCCu32TEST_HSE_M                              0x00000004      
     #define RCCu32TEST_PLL_M                              0x00000008  
     /* ******************************************************************************************** */
-
 #endif

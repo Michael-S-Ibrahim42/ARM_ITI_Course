@@ -8,6 +8,6 @@
 #ifndef _LAB2_H_
 #define _LAB2_H_
   /* ***************************** Runnable Prototypes ************************************ */
-  extern void Lab2_LedControlTask(void);
+  extern void Lab2_LedControlTask_R(void);
   /* ************************************************************************************** */
 #endif

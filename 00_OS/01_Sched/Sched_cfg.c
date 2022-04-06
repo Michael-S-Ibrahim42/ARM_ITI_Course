@@ -8,9 +8,9 @@
 
   /* ********************** Headers inclusion *********************** */
   /* STD headers */
-  #include "STD_TYPES.h"
+  #include "StdTypes.h"
   /* Runnables Prototypes inclusion */
-  #include "H_Led.h"
+  #include "Led.h"
   #include "Switch.h"
   #include "Lab2.h"
   /* Own headers */
@@ -22,12 +22,12 @@
   {
     [SCHED_u8SWITCH_TASK] = 
     {
-      .CallbackFn   = Switch_RUpdateStatus,
+      .CallbackFn   = Switch_vidUpdateStatus_R,
       .CyclicTimeMS = 5
     },
     [SCHED_u8LAB2_TASK] = 
     {
-      .CallbackFn   = Lab2_LedControlTask,
+      .CallbackFn   = Lab2_LedControlTask_R,
       .CyclicTimeMS = 5
     }
   };

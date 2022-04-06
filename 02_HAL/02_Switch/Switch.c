@@ -7,7 +7,7 @@
 ** **************************************************************************************/
 /* ****************************** Headers Inclusion ************************************* */
 /* LIB headers */
-#include "STD_TYPES.h"
+#include "StdTypes.h"
 #include "STM32F401CC.h"
 /* MCAL headers */
 #include "RCC.h"
@@ -94,7 +94,7 @@ Switch_tenuError Switch_enuGetStatus(u8 Copy_u8Switch, Switch_tenuStatus* Copy_p
   Return     :   void
   **Caution**:   The switches must be initialized using "Switch_enuInit" before calling "Sched_vidStart"
 */  
-void Switch_RUpdateStatus(void)
+void Switch_vidUpdateStatus_R(void)
 {
   u16 Loc_u16Reading = SWITCH_u8READING_INIT;/* Variable to receive the immediate reading */
   u8  Loc_u8Iterator = SWITCH_u8COUNTER_INIT;/* Variable to loop over the connected switches */
@@ -180,5 +180,5 @@ void Switch_RUpdateStatus(void)
       break;
     }/* switch */
   }/* for */
-}/* Switch_RUpdateStatus */
+}/* Switch_vidUpdateStatus_R */
 /* ************************************************************************************** */

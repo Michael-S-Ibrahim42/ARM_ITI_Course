@@ -7,7 +7,6 @@
 ** **************************************************************************************/
 #ifndef _RCC_H
 #define _RCC_H
-
   /* ********** typedef Section ************** */
   /* PLL Configurations */
   typedef struct
@@ -42,7 +41,6 @@
     RCC_enuOk,
     RCC_enuNok
   }RCC_tenuStatus;
-
   /* ************** #define Section ************************* */
   /* Bus Arguments */
   #define RCC_u8APB2                  13
@@ -58,8 +56,6 @@
   #define RCC_u8RUN_HSE_CRYSTAL       1
   #define RCC_u8RUN_HSE_RC            2
   #define RCC_u8RUN_PLL               3
-
-
   /* ************** Fns Prototypes Section ***************************** */
   /*  Control Prescalar of buses; AHB, APB1, APB2
       Parameter Options are in RCC.h under the comment "Bus Arguments"
@@ -91,7 +87,6 @@
      First Parameter Options are in RCC.h under the comment "Sys Clk" which is the needed clk
   */
   RCC_tenuStatus RCC_enuSelectSysClk(u8 Copy_u8SysClk);
-
 
 #endif
 

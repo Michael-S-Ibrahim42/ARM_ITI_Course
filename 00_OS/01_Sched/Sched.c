@@ -7,9 +7,9 @@
 ** **************************************************************************************/
 /* ********************** Headers inclusion ******************************************* */
 /* LIB headers */
-#include "STD_TYPES.h"
+#include "StdTypes.h"
 /* MCAL headers */
-#include "M_Systick.h"
+#include "Systick.h"
 /* Own headers */
 #include "Sched.h"
 #include "Sched_cfg.h"
@@ -28,11 +28,11 @@ u8 Sched_u8TickFiring = SCHED_u8FlagLowered; /* Initially the flag is lowered */
 void Sched_vidInit(void)
 {
   /* Init the systick timer */
-  M_Systick_enuInit(M_SYSTICK_u8AHB, M_SYSTICK_u8ON_INT);
+  Systick_enuInit(SYSTICK_u8AHB, SYSTICK_u8ON_INT);
   /* Set the systick callback fn timestamp */
-  M_Systick_enuSetTickTimeMS(SCHED_u8TICK_MS);
+  Systick_enuSetTickTimeMS(SCHED_u8TICK_MS);
   /* Registering the systick callback fn */
-  M_Systick_vidRegCallbackFn(Sched_vidTickCBF);
+  Systick_vidRegCallbackFn(Sched_vidTickCBF);
 }/* Sched_vidInit */
 /* 
   Fn            :       Start the scheduler
@@ -42,7 +42,7 @@ void Sched_vidInit(void)
 */  
 void Sched_vidStart(void)
 {
-  M_Systick_enuStart();/* Starting the systick timer */
+  Systick_enuStart();/* Starting the systick timer */
   while(TRUE)
   {
     if(Sched_u8TickFiring)/* If the flag has been raised by the systick callback fn*/

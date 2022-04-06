@@ -58,7 +58,7 @@
     Return     :   void
     **Caution**:   The switches must be initialized using "Switch_enuInit" before calling "Sched_vidStart"
   */  
-  extern void Switch_RUpdateStatus(void);
+  extern void Switch_vidUpdateStatus_R(void);
   /* ************************************************************************************** */
 
 #endif

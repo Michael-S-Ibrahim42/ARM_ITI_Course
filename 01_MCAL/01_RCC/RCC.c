@@ -5,12 +5,11 @@
 **       SWC         :	RCC
 **       Description :	RCC module files for STM32F401CC
 ** **************************************************************************************/
-#include "STD_TYPES.h"
+#include "StdTypes.h"
 #include "STM32F401CC.h"
 #include "RCC.h"
 #include "RCC_prv.h"
 #include "RCC_cfg.h"
-
 /*  Control Prescalar of buses; AHB, APB1, APB2
     Parameter Options are in RCC.h under the comment "Bus Arguments"
     You should adjust the prescalar value in RCC_cfg.h under the comment "Buses Prescalar Options"

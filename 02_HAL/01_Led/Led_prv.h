@@ -2,17 +2,17 @@
 **       Author      :	Michael S. Ibrahim
 **       Date        :	March 23, 2022
 **       Version     :	V01
-**       SWC         :	HLED
+**       SWC         :	LED
 **       Description :	Led module files
 ** **************************************************************************************/
-#ifndef _H_LED_PRV_H
-#define _H_LED_PRV_H
+#ifndef _LED_PRV_H
+#define _LED_PRV_H
   /* ************************** MACROS *********************************************** */
   /* Counter MACROS */
-  #define H_LED_u8COUNTER_INIT                           0
+  #define LED_u8COUNTER_INIT                           0
   /* ********************************************************************************* */
   /* ************************* Global Variables ************************************** */
   /* Extern Global */
-  extern const H_Led_tstrCfg H_Led_astrLeds[];
+  extern const Led_tstrCfg Led_astrLeds[];
 
 #endif

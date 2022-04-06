@@ -6,12 +6,11 @@
 **       Description :	GPIO module files
 ** **************************************************************************************/
 /* Header files inclusion */
-#include "STD_TYPES.h"
+#include "StdTypes.h"
 #include "STM32F401CC.h"
 #include "GPIO.h"
 #include "GPIO_prv.h" 
 #include "GPIO_cfg.h"
-
 /* ******************************************************************************************* */
 /* *********************** Interface Fns ***************************************************** */
 /* 
