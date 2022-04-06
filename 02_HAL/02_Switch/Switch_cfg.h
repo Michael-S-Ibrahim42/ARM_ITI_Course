@@ -10,8 +10,8 @@
   /* **************************** Configurations MACROS *********************************** */
   /* Connected Switches Names */
   /* Add MACRO for each connected switch and assign a value starting from 0 to 255, the following are examples */
-  #define SWITCH_u8ON_BTN                                 0
-  #define SWITCH_u8OFF_BTN                                1
+  #define SWITCH_u8IGNITION                                 0
+  #define SWITCH_u8DOOR                                     1
   /* Adjust the value only by the number of connected switches, max = 256 */
   #define SWITCH_u8BTN_NUM                                2
   /* ************************************************************************************** */

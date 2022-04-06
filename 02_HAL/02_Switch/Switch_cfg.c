@@ -16,17 +16,19 @@
 /* ************************************************************************************** */
 /* *************************** Global Variables ***************************************** */
 Switch_tstrConfig Switch_astrSwitch[] = {
-  [SWITCH_u8ON_BTN] = {
+  [SWITCH_u8IGNITION] = {
     .Port     = GPIO_u16PORT0,
-    .Pin      = GPIO_u16PIN6,
+    .Pin      = GPIO_u16PIN3,
     .PullRes  = GPIO_u8PULL_UP,
     .Status   = Switch_enuReleased
   },
-  [SWITCH_u8OFF_BTN] = {
+  [SWITCH_u8DOOR] = {
     .Port     = GPIO_u16PORT0,
-    .Pin      = GPIO_u16PIN1,
+    .Pin      = GPIO_u16PIN4,
     .PullRes  = GPIO_u8PULL_UP,
     .Status   = Switch_enuReleased
   }
 };
 /* ************************************************************************************** */
+  
+      
