@@ -1,18 +1,21 @@
 /* **************************************************************************************
 **       Author      :	Michael S. Ibrahim
-**       Date        :	March 23, 2022
+**       Date        :	April 03, 2022
 **       Version     :	V01
-**       SWC         :	Switch
-**       Description :	Switch module files
+**       SWC         :	Sched
+**       Description :	Scheduler module files
 ** **************************************************************************************/
-#ifndef _SWITCH_CFG_H
-#define _SWITCH_CFG_H
-  /* **************************** Configurations MACROS *********************************** */
-  /* Connected Switches Names */
-  /* Add MACRO for each connected switch and assign a value starting from 0 to 255, the following are examples */
-  #define SWITCH_u8BTN                                 0
-  /* Adjust the value only by the number of connected switches, max = 256 */
-  #define SWITCH_u8BTN_NUM                                  1
-  /* ************************************************************************************** */
+#ifndef _SCHED_CFG_H
+#define _SCHED_CFG_H
+
+  /* *********************** MACROS ********************************* */
+  /* The scheduler tick time in milliseconds */
+  #define SCHED_u8TICK_MS                           1
+  /* The Runnables Priorities, type your Runnables names attached with your selected priority(options are from 0 to 255) */
+  #define SCHED_u8LCD_TASK                          0
+  #define SCHED_u8LAB4_TASK                         1
+  /* Enter the number of runnables */
+  #define SCHED_u8RUNN_NUM                          2
+  /* **************************************************************** */
 
 #endif

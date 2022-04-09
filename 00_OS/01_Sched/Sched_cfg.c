@@ -10,9 +10,8 @@
   /* STD headers */
   #include "StdTypes.h"
   /* Runnables Prototypes inclusion */
-  #include "Led.h"
-  #include "Switch.h"
-  #include "Lab2.h"
+  #include "LCD.h"
+  #include "Lab4.h"
   /* Own headers */
   #include "Sched.h"
   #include "Sched_cfg.h"
@@ -20,15 +19,15 @@
   /* *********************** Global ********************************* */
   const Sched_tstrRunnable Sched_astrRunnableList[] = 
   {
-    [SCHED_u8SWITCH_TASK] = 
+    [SCHED_u8LCD_TASK] = 
     {
-      .CallbackFn   = Switch_vidUpdateStatus_R,
-      .CyclicTimeMS = 5
+      .CallbackFn   = LCD_vidMasterLCD_R,
+      .CyclicTimeMS = 1
     },
-    [SCHED_u8LAB2_TASK] = 
+    [SCHED_u8LAB4_TASK] = 
     {
-      .CallbackFn   = Lab2_LedControlTask_R,
-      .CyclicTimeMS = 5
+      .CallbackFn   = Lab4_LedControlTask_R,
+      .CyclicTimeMS = 20
     }
   };
   /* **************************************************************** */

@@ -33,4 +33,6 @@
   /* Flag Values */
   #define FLAG_LOW                  0
   #define FLAG_HIGH                 1
+  /* Init values */
+  #define ZERO_INIT                 0
 #endif
