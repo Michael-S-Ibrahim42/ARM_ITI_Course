@@ -40,8 +40,8 @@
   /* Available Modes */
   #define GPIO_u8Input                      0x00
   #define GPIO_u8GP_OUT                     0x01
-  #define GPIO_u8AF                         0x10
-  #define GPIO_u8ANALOG                     0x11
+  #define GPIO_u8AF                         0x02
+  #define GPIO_u8ANALOG                     0x03
   /* Available Out Types */
   #define GPIO_u8PUSH_PULL                  0x0 
   #define GPIO_u8OPEN_DRAIN                 0x1

@@ -21,6 +21,14 @@
   typedef u8*                       pu8;
   typedef u16*                      pu16;
   typedef f64*                      pf64;
+  typedef void (*tpfCallback)(void);
+  /* Defined Types */
+  typedef struct
+  {
+    u8* Buffer;
+    u32 Size;
+    u32 Index; 
+  }tstrBuffer;
   /* NULL Pointer */
   #define NULL                      ((void*)0)
   /* Truthness Values */
@@ -35,4 +43,6 @@
   #define FLAG_HIGH                 1
   /* Init values */
   #define ZERO_INIT                 0
+  /* Bit Slicers */
+  #define FIRST_BIT_SLICER          0x01
 #endif

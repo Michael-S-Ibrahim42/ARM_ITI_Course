@@ -15,11 +15,12 @@
   /* ****************************** Defined Types ***************************************** */
   /* peripherals IRQ numbers */
   typedef enum
-  {
+  { 
     NVIC_enuWWDG = 0,
     NVIC_enuEXTI0 = 6,
     NVIC_enuDMA1_S0 = 11,
-    NVIC_enuADC = 18
+    NVIC_enuADC = 18,
+    NVIC_enuUSART1 = 37
   }NVIC_tenuIRQn;
   /* Error type */
   typedef enum
