@@ -19,7 +19,7 @@
 const Led_tstrCfg Led_astrLeds[] = {
   [LED_u8BLUE] = {
     .Port         = GPIO_u16PORT0,      
-    .Pin          = GPIO_u16PIN0,       
+    .Pin          = GPIO_u16PIN3,       
     .ActiveState  = LED_u8HIGH_ACTIVE_STATE,
     .OType        = GPIO_u8PUSH_PULL      
   },

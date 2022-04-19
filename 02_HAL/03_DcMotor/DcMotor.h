@@ -12,12 +12,20 @@
   /* /////////////////////////////////////////////////////////////////////////// */
 
   /* /////////////////////////////////// Defined Types ///////////////////////// */
+  /* Configuration structure */
   typedef struct
   {
-    u8 u8PinLeft; /* the pin number from "Dio.h" or the options from "Pin Disconnected" */
-    u8 u8PinRight;
-    u8 u8SpeedPin;
+    u16 u16Port    ;     /* the port number from "GPIO.h" under "Available Ports" */
+    u16 u16PinLeft ;     /* the pin number from "GPIO.h" under "Available Ports" or the options from "Pin Disconnected" */
+    u16 u16PinRight;     /* the pin number from "GPIO.h" under "Available Ports" or the options from "Pin Disconnected" */
+    u16 u16SpeedPin;     /* the pin number from "GPIO.h" under "Available Ports" or the options from "Pin Disconnected" */
   }DcMotor_tstrConfig;
+  /* Functions return status */
+  typdef enum
+  {
+    DcMotor_enuOk,
+    DcMotor_enuNok
+  }DcMotor_tenuStatus;
   /* /////////////////////////////////////////////////////////////////////////// */
 
   /* /////////////////////////// MACROS //////////////////////////////////////// */
@@ -31,29 +39,35 @@
 
   /* /////////////////////////// Interface Fns ///////////////////////////////// */
   /* 
+    Description         :           Init the Motors pins clock and mode
+    Parameter(s)        :           void
+    Return              :           Error status of type "DcMotor_tenuStatus" in "DcMotor.h"
+  */
+  DcMotor_tenuStatus DcMotor_enuInit(void);
+  /* 
     Description         :           Move the right-pin motor or the motors to right in case of using H-bridge
     Parameter1          :           the motor(s) ID, options are in "DcMotor_cfg.h" under "Motors IDs"
-    Return              :           void
+    Return              :           Error status of type "DcMotor_tenuStatus" in "DcMotor.h"
   */
-  void DcMotor_enuMoveRight(u8 DcMotor_u8MotorID);
+  DcMotor_tenuStatus DcMotor_enuMoveRight(u8 DcMotor_u8MotorID);
   /* 
     Description         :           Move the left-pin motor or the motors to left in case of using H-bridge
     Parameter1          :           the motor(s) ID, options are in "DcMotor_cfg.h" under "Motors IDs"
-    Return              :           void
+    Return              :           Error status of type "DcMotor_tenuStatus" in "DcMotor.h"
   */
-  void DcMotor_enuMoveLeft(u8 DcMotor_u8MotorID);
+  DcMotor_tenuStatus DcMotor_enuMoveLeft(u8 DcMotor_u8MotorID);
   /* 
     Description         :           stop the motor(s)
     Parameter1          :           the motor(s) ID, options are in "DcMotor_cfg.h" under "Motors IDs"
-    Return              :           void
+    Return              :           Error status of type "DcMotor_tenuStatus" in "DcMotor.h"
   */
-  void DcMotor_enuStop(u8 DcMotor_u8MotorID);
+  DcMotor_tenuStatus DcMotor_enuStop(u8 DcMotor_u8MotorID);
   /* 
     Description         :           Control speed
     Parameter1          :           the motor(s) ID, options are in "DcMotor_cfg.h" under "Motors IDs"
     Parameter2          :           
-    Return              :           void
+    Return              :           Error status of type "DcMotor_tenuStatus" in "DcMotor.h"
   */
-  void DcMotor_enuControlSpeed(u8 DcMotor_u8MotorID, u8 DcMotor_u8Speed);
+  DcMotor_tenuStatus DcMotor_enuControlSpeed(u8 DcMotor_u8MotorID, u8 DcMotor_u8Speed);
   /* /////////////////////////////////////////////////////////////////////////// */
 #endif

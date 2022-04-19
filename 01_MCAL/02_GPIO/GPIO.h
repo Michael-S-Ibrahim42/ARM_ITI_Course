@@ -19,7 +19,7 @@
   {
     GPIO_enuLow = 0,
     GPIO_enuHigh
-  }GPIO_tenuPinLevel;
+  }GPIO_tenuPinLevel;    
   typedef struct
   {
     u8  Mode;       /* select of the 'Available Modes' in GPIO.h          , under 'STD types options' section*/

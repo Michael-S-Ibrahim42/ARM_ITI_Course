@@ -16,9 +16,9 @@
 /* ************************************************************************************** */
 /* *************************** Global Variables ***************************************** */
 Switch_tstrConfig Switch_astrSwitch[] = {
-  [SWITCH_u8BTN] = {
+  [SWITCH_u8Ignition] = {
     .Port     = GPIO_u16PORT0,
-    .Pin      = GPIO_u16PIN6,
+    .Pin      = GPIO_u16PIN1,
     .PullRes  = GPIO_u8PULL_UP,
     .Status   = Switch_enuReleased
   }

@@ -6,7 +6,7 @@
 **       Description :	DcMotor software component
 ** **************************************************************************************/
 /* ////////////////////////////////////// Headers inclusion ///////////////////////////////// */
-#include "Dio.h"
+#include "GPIO.h"
 #include "DcMotor.h"
 #include "DcMotor_cfg.h"
 #include "DcMotor_prv.h"
@@ -15,11 +15,12 @@
 /* ///////////////////////////////////// Configuration array //////////////////////////////// */
 DcMotor_tstrConfig DcMotor_astrMotorConfig[] = 
 {
-  [DCMOTOR_u8MOTOR_ONE] =
+  [DCMOTOR_u8IGNITION_MOTOR] =
   {
-    .u8PinLeft  = DIO_u8PIN0,
-    .u8PinRight = DIO_u8PIN1,
-    .u8SpeedPin = DCMOTOR_u8DISCONNECTED
+    .u16Port     = GPIO_u16PORT0,
+    .u16PinLeft  = DIO_u8PIN2,
+    .u16PinRight = DCMOTOR_u8FORCED_GND,
+    .u16SpeedPin = DCMOTOR_u8DISCONNECTED
   }
 };
 /* ////////////////////////////////////////////////////////////////////////////////////////// */

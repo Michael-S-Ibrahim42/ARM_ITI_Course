@@ -5,3 +5,4 @@
 **       SWC         :	Buzzer
 **       Description :	Buzzer module files
 ** **************************************************************************************/
+/* Connect it on Pin4 port0 */
