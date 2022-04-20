@@ -37,39 +37,47 @@ void Ign_vidCheckIgn_R(void)
   switch(Ign_enuState)
   {
   case(Ign_enuStopped):
-    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && (Loc_enuDoorState == IntSwitch_enuOpen))
+    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && 
+       (Loc_enuDoorState == IntSwitch_enuReleased)) /* Door is open && Ignition fired */
     {
       Ign_vidRunCase3();
     }/* if */
-    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && (Loc_enuDoorState == IntSwitch_enuOpen))
+    else if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && 
+            (Loc_enuDoorState == IntSwitch_enuPressed)) /* Door is closed && Ignition fired */
     {
-      Ign_vidRunCase3();
-    }/* if */
-    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && (Loc_enuDoorState == IntSwitch_enuOpen))
+      Ign_vidRunCase1();
+    }/* else if */
+    else if( ((Loc_enuPrevIgnitionState != Switch_enuPreReleased) || (Loc_enuCurrentIgnitionState != Switch_enuReleased)) &&
+              (Loc_enuDoorState == IntSwitch_enuPressed)) /* Door is closed && Ignition not fired */
     {
-      Ign_vidRunCase3();
+      Ign_vidRunCase4();
     }/* if */
-    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && (Loc_enuDoorState == IntSwitch_enuOpen))
+    else if( ((Loc_enuPrevIgnitionState != Switch_enuPreReleased) || (Loc_enuCurrentIgnitionState != Switch_enuReleased)) &&
+              (Loc_enuDoorState == IntSwitch_enuReleased)) /* Door is open && Ignition not fired */
     {
       Ign_vidRunCase3();
     }/* if */
     break;
   case(Ign_enuRunning):
-    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && (Loc_enuDoorState == IntSwitch_enuOpen))
+    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && 
+       (Loc_enuDoorState == IntSwitch_enuReleased)) /* Door is open && Ignition fired */
     {
       Ign_vidRunCase3();
     }/* if */
-    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && (Loc_enuDoorState == IntSwitch_enuOpen))
+    else if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && 
+            (Loc_enuDoorState == IntSwitch_enuPressed)) /* Door is closed && Ignition fired */
     {
-      Ign_vidRunCase3();
+      Ign_vidRunCase4();
+    }/* else if */
+    else if( ((Loc_enuPrevIgnitionState != Switch_enuPreReleased) || (Loc_enuCurrentIgnitionState != Switch_enuReleased)) &&
+              (Loc_enuDoorState == IntSwitch_enuPressed)) /* Door is closed && Ignition not fired */
+    {
+      Ign_vidRunCase2();
     }/* if */
-    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && (Loc_enuDoorState == IntSwitch_enuOpen))
+    else if( ((Loc_enuPrevIgnitionState != Switch_enuPreReleased) || (Loc_enuCurrentIgnitionState != Switch_enuReleased)) &&
+              (Loc_enuDoorState == IntSwitch_enuReleased)) /* Door is open && Ignition not fired */
     {
-      Ign_vidRunCase3();
-    }/* if */
-    if((Loc_enuPrevIgnitionState == Switch_enuPreReleased) && (Loc_enuCurrentIgnitionState == Switch_enuReleased) && (Loc_enuDoorState == IntSwitch_enuOpen))
-    {
-      Ign_vidRunCase3();
+      Ign_vidRunCase2();
     }/* if */
     break;
   default:
@@ -86,23 +94,43 @@ void Ign_vidCheckIgn_R(void)
   Parameter(s)      :     void
   Return            :     void
 */
-void Ign_vidRunCase1(void);
+void Ign_vidRunCase1(void)
+{
+  DcMotor_enuMoveRight(DCMOTOR_u8MOTOR_NUM);
+  Led_enuSetReq(Led_enuTurnOff);
+  Buzzer_enuStop(BUZZER_u8IGN);
+}/* Ign_vidRunCase1 */
 /* 
   Description       :     Private Fn to make case 2 actions
   Parameter(s)      :     void
   Return            :     void
 */
-void Ign_vidRunCase2(void);
+void Ign_vidRunCase2(void)
+{
+  DcMotor_enuMoveRight(DCMOTOR_u8MOTOR_NUM);
+  Led_enuSetReq(Led_enuFlash);
+  Buzzer_enuRun(BUZZER_u8IGN);  
+}/* Ign_vidRunCase2 */
 /* 
   Description       :     Private Fn to make case 3 actions
   Parameter(s)      :     void
   Return            :     void
 */
-void Ign_vidRunCase3(void);
+void Ign_vidRunCase3(void)
+{
+  DcMotor_enuStop(DCMOTOR_u8MOTOR_NUM);
+  Led_enuSetReq(Led_enuTurnOn);
+  Buzzer_enuStop(BUZZER_u8IGN);  
+}/* Ign_vidRunCase3 */
 /* 
   Description       :     Private Fn to make case 4 actions
   Parameter(s)      :     void
   Return            :     void
 */
-void Ign_vidRunCase4(void);
+void Ign_vidRunCase4(void)
+{
+  DcMotor_enuStop(DCMOTOR_u8MOTOR_NUM);
+  Led_enuSetReq(Led_enuTurnOff);
+  Buzzer_enuStop(BUZZER_u8IGN);  
+}/* Ign_vidRunCase4 */
 /* ///////////////////////////////////////////////////////////////////////////////////////// */

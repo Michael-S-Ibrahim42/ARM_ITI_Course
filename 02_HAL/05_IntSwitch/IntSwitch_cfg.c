@@ -5,3 +5,6 @@
 **       SWC         :	IntSwitch
 **       Description :	IntSwitch module files
 ** **************************************************************************************/
+
+
+/* connect on pin0 */
