@@ -10,8 +10,8 @@
   /* STD headers */
   #include "StdTypes.h"
   /* Runnables Prototypes inclusion */
-  #include "LCD.h"
-  #include "Lab5.h"
+  // #include "LCD.h"
+   #include "USART_Test.h"
   /* Own headers */
   #include "Sched.h"
   #include "Sched_cfg.h"
@@ -19,9 +19,9 @@
   /* *********************** Global ********************************* */
   const Sched_tstrRunnable Sched_astrRunnableList[] = 
   {
-    [SCHED_u8LAB5_TASK] = 
+    [SCHED_u8USART_TEST_R] = 
     {
-      .CallbackFn   = Lab5_vidLedToggle_R,
+      .CallbackFn   = USART_Test_vidCallbackFn,
       .CyclicTimeMS = 1
     }
   };

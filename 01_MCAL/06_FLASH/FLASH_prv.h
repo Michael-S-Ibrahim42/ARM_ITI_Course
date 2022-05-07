@@ -1,12 +1,25 @@
 /* **************************************************************************************
 **       Author      :	Michael S. Ibrahim
-**       Date        :	April 10, 2022
+**       Date        :	April 30, 2022
 **       Version     :	V01
-**       SWC         :	USART
-**       Description :	USART module file
+**       SWC         :	FLASH
+**       Description :	Embedded Flash memory interface driver
 ** **************************************************************************************/
-#ifndef _USART_CFG_H
-#define _USART_CFG_H
+#ifndef _FLASH_PRV_H
+#define _FLASH_PRV_H
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #endif

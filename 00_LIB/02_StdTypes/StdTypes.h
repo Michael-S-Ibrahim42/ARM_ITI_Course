@@ -22,13 +22,15 @@
   typedef u16*                      pu16;
   typedef f64*                      pf64;
   typedef void (*tpfCallback)(void);
-  /* Defined Types */
+  /* /////////////////////////////// Defined Types ////////////////////////////////////////////// */
+  /* Buffer type */
   typedef struct
   {
-    u8* Buffer;
+    u8* Data;
     u32 Size;
     u32 Index; 
   }tstrBuffer;
+  /* ///////////////////////////////////////////////////////////////////////////////////////////////// */
   /* NULL Pointer */
   #define NULL                      ((void*)0)
   /* Truthness Values */

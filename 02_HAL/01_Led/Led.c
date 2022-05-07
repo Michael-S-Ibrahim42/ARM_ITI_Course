@@ -86,6 +86,6 @@ Led_tenuStatus Led_enuSet(u16 Copy_u16LedNum, u8 Copy_u8LedLvl)
 void Led_vidToggleLed_R(void)
 {
   static u8 Loc_u8LedLvl = LED_u8ON;
-  Led_enuSet(LED_u8BLUE, Loc_u8LedLvl);
+  Led_enuSet(LED_u8MIL, Loc_u8LedLvl);
   Loc_u8LedLvl ^= LED_u8OFF;
 }

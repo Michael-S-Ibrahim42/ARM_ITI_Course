@@ -1,12 +1,11 @@
 /* **************************************************************************************
 **       Author      :	Michael S. Ibrahim
-**       Date        :	April 10, 2022
+**       Date        :	May 07, 2022
 **       Version     :	V01
-**       SWC         :	USART
-**       Description :	USART module file
+**       SWC         :	USART_Test
+**       Description :	header file
 ** **************************************************************************************/
-#ifndef _USART_CFG_H
-#define _USART_CFG_H
-
-
+#ifndef _USART_TEST_H
+#define _USART_TEST_H
+	void USART_Test_vidCallbackFn(void);
 #endif

@@ -177,14 +177,10 @@ RCC_tenuStatus RCC_enuPerClk(RCC_tenuPer Copy_enuPeripheral, RCC_tenuTurn Copy_e
     {
       (RCC_pstrRegisters->AHB2ENR) |= (1 << (Copy_enuPeripheral % 32));
     }/* else if */
-    else if(Copy_enuPeripheral >= (32 * 0))
-    {
-      (RCC_pstrRegisters->AHB1ENR) |= (1 << (Copy_enuPeripheral % 32));
-    }/* else if */
     else
     {
-      Loc_enuError = RCC_enuNok;
-    } /* else */
+      (RCC_pstrRegisters->AHB1ENR) |= (1 << (Copy_enuPeripheral % 32));
+    }/* else */
     break;
   case (RCC_enuOff):
     if ((Copy_enuPeripheral >= (32 * 3)) && (Copy_enuPeripheral < (32 * 4)))
@@ -199,14 +195,10 @@ RCC_tenuStatus RCC_enuPerClk(RCC_tenuPer Copy_enuPeripheral, RCC_tenuTurn Copy_e
     {
       (RCC_pstrRegisters->AHB2ENR) &= ~(1 << (Copy_enuPeripheral % 32));
     }/* else if */
-    else if(Copy_enuPeripheral >= (32 * 0))
-    {
-      (RCC_pstrRegisters->AHB1ENR) &= ~(1 << (Copy_enuPeripheral % 32));
-    }/* else if */
     else
     {
-      Loc_enuError = RCC_enuNok;
-    } /* else */
+      (RCC_pstrRegisters->AHB1ENR) &= ~(1 << (Copy_enuPeripheral % 32));
+    }/* else */
     break;
   default:
     Loc_enuError = RCC_enuNok;
