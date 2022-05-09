@@ -77,8 +77,6 @@ USART_tenuStatus USART_enuInit(USART_tstrSpecs* Copy_pstrSpecs, USART_tstrConfig
         Loc_u16Div_Mantissa++;
       }/* if */
     }/* else */
-    Loc_pstrRegisters->SR  &= ~(USART_u8TXC_FLAG);
-    Loc_pstrRegisters->SR  &= ~(USART_u8RXNE_FLAG);
     Loc_pstrRegisters->CR1  = USART_u16_ENABLE;
     Loc_pstrRegisters->BRR  = (Loc_u16Div_Mantissa<<USART_u8MANT_SHIFT) | (Loc_u8Div_Fraction);
     Loc_pstrRegisters->CR2  = Copy_pstrConfig->StopBits;
@@ -120,8 +118,8 @@ USART_tenuStatus USART_enuSendBufferZeroCopy(USART_tstrSpecs* Copy_pstrSpecs)
     }/* switch */
     if(USART_apstrTxSpecs[Copy_pstrSpecs->BusID] == NULL)/* check on bus availability to register sending buffer */
     {
-      Loc_pstrRegisters->SR  &= ~(USART_u8TXC_FLAG);
       USART_apstrTxSpecs[Copy_pstrSpecs->BusID] = Copy_pstrSpecs;
+      Loc_pstrRegisters->SR  &= ~(USART_u8TXC_FLAG);
       Loc_pstrRegisters->CR1 |=  (USART_u16_TXC_ENABLE);
       USART_enuSendByte(Copy_pstrSpecs->BusID);
     }/* if */
@@ -166,8 +164,8 @@ USART_tenuStatus USART_enuReceiveBuffer(USART_tstrSpecs* Copy_pstrSpecs)
     }/* switch */
     if(USART_apstrRxSpecs[Copy_pstrSpecs->BusID] == NULL)
     {
-      Loc_pstrRegisters->SR  &= ~(USART_u8RXNE_FLAG);
       USART_apstrRxSpecs[Copy_pstrSpecs->BusID] = Copy_pstrSpecs;
+      Loc_pstrRegisters->SR  &= ~(USART_u8RXNE_FLAG);
       Loc_pstrRegisters->CR1 |= (USART_u16_RXNE_ENABLE);
     }/* if */
     else 
@@ -191,7 +189,7 @@ USART_tenuStatus USART_enuReceiveBuffer(USART_tstrSpecs* Copy_pstrSpecs)
 static USART_tenuStatus USART_enuSendByte(u8 Copy_u8BusID)
 {
   USART_tenuStatus Loc_enuError = USART_enuOk;/* Initializing error status */
-  USART_tstrRegisters* Loc_pstrRegisters;
+  USART_tstrRegisters* Loc_pstrRegisters = NULL;
 
   switch(Copy_u8BusID)
   {
