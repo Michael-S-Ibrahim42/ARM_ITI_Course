@@ -18,12 +18,22 @@
 #include "Led.h"
 #include "USART_Test.h"
 /* ////////////////////////////////////////////////////////////////////////////////////////// */
-
+#define SIZE				10
 /* //////////////////////////////// Global Variables //////////////////////////////////////// */
 static u8 State = LED_u8OFF;
-u8 Characters[1024] = {0};
+u8 Characters[SIZE] = {0};
 /* ////////////////////////////////////////////////////////////////////////////////////////// */
-
+USART_tstrSpecs Loc_strUSART_Specs =
+{
+	  .Callback = USART_Test_vidCallbackFn,
+	  .Buffer   =
+	  {
+		.Data  = Characters,
+		.Size  = (u32)SIZE,
+		.Index = (u32)0
+	  },
+	  .BusID    = USART_u8BUS1
+};
 /* //////////////////////////////// main Fn ///////////////////////////////////////////////// */
 int main(void)
 {
@@ -65,21 +75,11 @@ int main(void)
     .WordLength   = USART_u16_8BIT,
     .Frequency    = (u8)16
   };
-  USART_tstrSpecs Loc_strUSART_Specs =
-  {
-	  .Callback = USART_Test_vidCallbackFn,
-	  .Buffer   =
-	  {
-		.Data  = Characters,
-		.Size  = (u32)20,
-		.Index = (u32)0
-	  },
-	  .BusID    = USART_u8BUS1
-  };
 
-  for(; Loc_u16Counter < 1024; Loc_u16Counter++)
+
+  for(; Loc_u16Counter < SIZE; Loc_u16Counter++)
   {
-	  Characters[Loc_u16Counter] = '5';
+	  Characters[Loc_u16Counter] = '0';
   }
 
   Led_enuInit();
@@ -91,12 +91,12 @@ int main(void)
   GPIO_enuSelectAF(&Loc_strRxAFPin, 7);
 
   USART_enuInit(&Loc_strUSART_Specs, &Loc_strUSART_Config);
-  USART_enuSendBufferZeroCopy(&Loc_strUSART_Specs);
-
+//  USART_enuSendBufferZeroCopy(&Loc_strUSART_Specs);
+  USART_enuReceiveBuffer(&Loc_strUSART_Specs);
   while(1)
   {
 	  Led_enuSet(LED_u8MIL,State);
-	  USART_enuSendBufferZeroCopy(&Loc_strUSART_Specs);
+//	  USART_enuSendBufferZeroCopy(&Loc_strUSART_Specs);
   }
   return(0); 
 }/* main */
@@ -104,6 +104,16 @@ int main(void)
 /* //////////////////////////////// App callback Fn ///////////////////////////////////////// */
 void USART_Test_vidCallbackFn(void)
 {
-	State ^= 1;
+	static u8 Turn = 0;
+	if(Turn == 0)
+	{
+		USART_enuSendBufferZeroCopy(&Loc_strUSART_Specs);
+		Turn = 1;
+	}
+	else
+	{
+		USART_enuReceiveBuffer(&Loc_strUSART_Specs);
+		Turn = 0;
+	}
 }/* USART_Test_vidCallbackFn */
 /* ////////////////////////////////////////////////////////////////////////////////////////// */

@@ -47,4 +47,26 @@
   #define ZERO_INIT                 0
   /* Bit Slicers */
   #define FIRST_BIT_SLICER          0x01
+  
+  /* /////////////////////////////////////// OS Standard Types ////////////////////////////////// */
+  /* Defined Types */
+  typedef void (*pfTask_t)(void);
+  typedef struct tcb
+  {
+    u32*        TaskStack;
+    u32         TaskStackSize;
+    struct tcb  Next;
+    struct tcb  Prev;
+    pfTask_t    Task;
+    u32         TaskPri;
+    u32         WaitTicks;
+  }strTCB_t;
+  typedef enum
+  {
+    enuOrderType_Pri,
+    enuOrderType_Tick
+  }enuOrderType_t;
+  /* MACROS */
+  #define OS_u8OS_OFF                                       ((u8)(0))
+  #define OS_u8OS_ON                                        ((u8)(1))
 #endif
