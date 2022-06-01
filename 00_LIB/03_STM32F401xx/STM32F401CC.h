@@ -115,11 +115,33 @@
   /* /////////////////////////////////// DMA //////////////////////////////////////////// */
   #define DMA1_u32BASE_ADD                                    ((u32)(0x40026000))
   #define DMA2_u32BASE_ADD                                    ((u32)(0x40026400))
-  typedef struct
-  {
-    volatile
-  }DMA_strRegisters_t;
+  // typedef struct
+  // {
+  //   volatile
+  // }DMA_strRegisters_t;
   /* //////////////////////////////////////////////////////////////////////////////////// */
 
+  /* /////////////////////////////////// SCB //////////////////////////////////////////// */
+  #define SCB_u32BASE_ADD                                     ((u32)(0xE000ED00))
+  typedef struct
+  {
+    volatile u32 CPUID;
+    volatile u32 ICSR;
+    volatile u32 VTOR;
+    volatile u32 AIRCR;
+    volatile u32 SCR;
+    volatile u32 CCR;
+    volatile u8  SHP[12];
+    volatile u32 SHCSR;
+    volatile u32 CFSR;
+    volatile u32 HFSR;
+    volatile u32 Reserved;
+    volatile u32 MMAR;
+    volatile u32 BFAR;
+    volatile u32 AFSR;
+    volatile u32 AFSR;
+  }SCB_strRegisters_t;
+  #define SCB_pstrRegisters                                    ((SCB_strRegisters_t*)(SCB_u32BASE_ADD))
+  /* //////////////////////////////////////////////////////////////////////////////////// */
 
 #endif
