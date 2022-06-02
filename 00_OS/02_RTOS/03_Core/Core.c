@@ -9,11 +9,15 @@
 /* LIB */
 #include "StdTypes.h"
 #include "STM32F401CC.h"
-/* Own Headers */
+/* Data Structures */
 #include "List.h"
+/* OS Configurations */
+#include "OS_cfg.h"
+/* Porting */
 #include "Port.h"
+/* Own Headers */
 #include "Core.h"
-#include "Core_cfg.h"
+#include "Core_prv.h"
 /* //////////////////////////////////////////////////////////////////////// */
 
 /* //////////////////////// Global Variables ///////////////////////////////// */
@@ -39,15 +43,15 @@ void OS_vidCreateTask(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_TaskS
   Loc_pstrAllocatedTCB = OS_pstrTaskInit(Copy_pfTask, Copy_u32TaskPri, Copy_TaskStack, Copy_TaskStackSize);
   if(Loc_pstrAllocatedTCB != NULL)
   {
-    // Port_vidDisableInterrupt
+    Port_vidDisableInterrupt();
     List_vidInsert(&OS_pstrReadyList, Loc_pstrAllocatedTCB, enuOrderType_Pri);
     if((OS_enuOS_State == enuOS_State_On) && (Loc_pstrAllocatedTCB->TaskPri < OS_pstrCurrentTCB->TaskPri))
     {
       List_vidInsert(&OS_pstrReadyList, OS_pstrCurrentTCB, enuOrderType_Pri);
       OS_pstrHighestReadyTCB = List_pstrExtractHead(&OS_pstrReadyList);
-      // Port_vidTaskSwitch();
+      Port_vidTaskSwitch();
     }/* if */
-    // Port_vidEnableInterrupt
+    Port_vidEnableInterrupt();
   }/* if */
 }/* OS_vidCreateTask */
 strTCB_t* OS_pstrTaskInit(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_TaskStack, u32 Copy_TaskStackSize)
@@ -65,21 +69,17 @@ strTCB_t* OS_pstrTaskInit(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_T
     Loc_pstrAllocatedTCB->TaskPri = Copy_u32TaskPri;
     Loc_pstrAllocatedTCB->WaitTicks = ZERO_INIT;
     Loc_pstrAllocatedTCB->TaskStackSize = Copy_TaskStackSize;
-    Loc_pstrAllocatedTCB->TaskSP = ((u32)Copy_TaskStack + Copy_TaskStackSize) & (0xFFFFFFFC);
+    Loc_pstrAllocatedTCB->TaskSP     = (u32*)(((u32)(Copy_TaskStack + Copy_TaskStackSize)) & ((u32)0xFFFFFFFC));
     Loc_pstrAllocatedTCB->TaskSP--;
-    Loc_pstrAllocatedTCB->TaskSP = 0x01000000; /* PSR */
+    *(Loc_pstrAllocatedTCB->TaskSP)  = (u32)(0x01000000); /* PSR */
     Loc_pstrAllocatedTCB->TaskSP--;
-    Loc_pstrAllocatedTCB->TaskSP = ((u32)(Copy_pfTask)) & 0xFFFFFFFE; /* PC */
+    *(Loc_pstrAllocatedTCB->TaskSP)  = (((u32)Copy_pfTask) & ((u32)0xFFFFFFFE)); /* PC */
     Loc_pstrAllocatedTCB->TaskSP--;
-    Loc_pstrAllocatedTCB->TaskSP = 0x00; /* LR */
+    *(Loc_pstrAllocatedTCB->TaskSP)  = (u32)(0x00); /* LR */
     Loc_pstrAllocatedTCB->TaskSP -= 5; /* R12, R3:R0 */
     Loc_pstrAllocatedTCB->TaskSP--;
-    Loc_pstrAllocatedTCB->TaskSP = 0xFFFFFFFD; /* EXC_RET = PSP Thread */
+    *(Loc_pstrAllocatedTCB->TaskSP)  = (u32)(0xFFFFFFFD); /* EXC_RET = PSP Thread */
     Loc_pstrAllocatedTCB->TaskSP -= 8; /* R11:R4 */
-
-    return(Loc_pstrAllocatedTCB);
-
-
   }/* if */
   else
   {
@@ -90,24 +90,24 @@ strTCB_t* OS_pstrTaskInit(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_T
 }/* OS_pstrTaskInit */
 void OS_vidDelay(u32 Copy_u32WaitTicks)
 {
-  // Port_vidDisableInterrupt
+  Port_vidDisableInterrupt();
   OS_pstrCurrentTCB->WaitTicks = Copy_u32WaitTicks;
   List_vidInsert(&OS_pstrWaitingList, OS_pstrCurrentTCB, enuOrderType_Tick);
   OS_pstrHighestReadyTCB = List_pstrExtractHead(&OS_pstrReadyList);
-  // Port_vidTaskSwitch();
-  // Port_vidEnableInterrupt
+  Port_vidTaskSwitch();
+  Port_vidEnableInterrupt();
 }/* OS_vidDelay */
 void OS_vidStart(void)
 {
-  // Port_vidDisableInterrupt
+  Port_vidDisableInterrupt();
   OS_vidCreateTask(OS_vidRunIdle_T, (OS_u8TASKS_MAX-1), OS_aIdleTaskStack, OS_u8IDLE_TASK_STACK_SIZE);
   /* To lower interrupt latency */
   SCB_pstrRegisters->SHP[10] = 0xF0;   /* PendSV */
   SCB_pstrRegisters->SHP[11] = 0xF0;   /* Systick */
-  // Port_vidSystickSetup();
+  Port_vidSystickSetup();
   OS_pstrCurrentTCB = List_pstrExtractHead(&OS_pstrReadyList);
   OS_enuOS_State = enuOS_State_On;
-  // Port_vidStartFirstTask();
+  Port_vidStartFirstTask();
 }/* OS_vidStart */
 void OS_vidRunIdle_T(void)
 {

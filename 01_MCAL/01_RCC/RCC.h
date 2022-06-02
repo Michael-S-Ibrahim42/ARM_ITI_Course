@@ -48,12 +48,12 @@
   #define RCC_u8APB1                  10
   #define RCC_u8AHB                   4
   /* Clk Arguments */
-  #define RCC_u8HSI                   0
+  #define RCC_u8HSI                   0   
   #define RCC_u8HSE_CRYSTAL           1
   #define RCC_u8HSE_RC                2
   #define RCC_u8PLL                   3
   /* Sys Clk */
-  #define RCC_u8RUN_HSI               0
+  #define RCC_u8RUN_HSI               0   
   #define RCC_u8RUN_HSE_CRYSTAL       1
   #define RCC_u8RUN_HSE_RC            2
   #define RCC_u8RUN_PLL               3

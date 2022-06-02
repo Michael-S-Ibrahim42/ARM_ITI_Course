@@ -112,15 +112,6 @@
   }USART_tstrRegisters;
   /* ************************************************************************************ */
   
-  /* /////////////////////////////////// DMA //////////////////////////////////////////// */
-  #define DMA1_u32BASE_ADD                                    ((u32)(0x40026000))
-  #define DMA2_u32BASE_ADD                                    ((u32)(0x40026400))
-  // typedef struct
-  // {
-  //   volatile
-  // }DMA_strRegisters_t;
-  /* //////////////////////////////////////////////////////////////////////////////////// */
-
   /* /////////////////////////////////// SCB //////////////////////////////////////////// */
   #define SCB_u32BASE_ADD                                     ((u32)(0xE000ED00))
   typedef struct
@@ -138,7 +129,6 @@
     volatile u32 Reserved;
     volatile u32 MMAR;
     volatile u32 BFAR;
-    volatile u32 AFSR;
     volatile u32 AFSR;
   }SCB_strRegisters_t;
   #define SCB_pstrRegisters                                    ((SCB_strRegisters_t*)(SCB_u32BASE_ADD))
