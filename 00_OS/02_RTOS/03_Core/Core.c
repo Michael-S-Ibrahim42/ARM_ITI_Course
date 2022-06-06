@@ -62,7 +62,7 @@ strTCB_t* OS_pstrTaskInit(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_T
     /* Allocation step */
     Loc_pstrAllocatedTCB = &OS_astrTCB[OS_TCB_Index];
     OS_TCB_Index++;
-    /* Initialization */
+    /* Initialization */  
     Loc_pstrAllocatedTCB->Next = NULL;
     Loc_pstrAllocatedTCB->Prev = NULL;
     Loc_pstrAllocatedTCB->Task = Copy_pfTask;

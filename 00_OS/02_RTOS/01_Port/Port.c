@@ -88,19 +88,34 @@ void Port_vidSystickCallback(void)
 /* /////////////////////////////////// ISRs ////////////////////////// */
 void SVC_Handler(void)
 {
-  asm("  .align 4     ");
-  asm("               ");
-  asm("  ldr r0, =OS_pstrCurrentTCB    ");
-  asm("  ldr r0, [r0]                  ");
-  asm("               ");
-  asm("               ");
-  asm("               ");
-  asm("               ");
+  /* Context Unstacking */
+  asm("  .ALIGN 4                          ");
+  asm("  LDR R0, =OS_pstrCurrentTCB        "); /* Address of the Current TCB */
+  asm("  LDR R0, [R0]                      "); /* Address of the Task SP (Pointer address) */
+  asm("  LDR R0, [R0]                      "); /* Task SP (the pointer itself) */
+  asm("  LDMIA R0!, {R4-R11, R14}          "); /* Poping from the task stack, Instruction is load multiple increment after */
+  asm("  MSR PSP, R0                       "); /* put the psp value of the current task stack */
+  asm("  MOV R1, #0x00                     "); /* preparing to enable interrupt */
+  asm("  MSR BASEPRI, R1                   "); /* enable interrupt */  
+  asm("  BX R14                            "); /* return to thread PSP */
 }/* SVC_Handler */
 void PendSV_Handler(void)
 {
   /* Context Switching */
-
-
+  /* Saving Current Task Context */
+  asm("  .ALIGN 4                          ");
+  asm("  MRS R0, PSP                       ");
+  asm("  LDR R3, =OS_pstrCurrentTCB        "); /* &OS_pstrCurrentTCB */
+  asm("  LDR R2, [R3]                      "); /* OS_pstrCurrentTCB */
+  asm("  STMDB R0!, {R4-R11, R14}          ");
+  asm("  STR R0, [R2]                      "); /* Saving Task SP */
+  /* Get Highest Task Context */
+  asm("  LDR R1, =OS_pstrHighestReadyTCB   ");
+  asm("  LDR R1, [R1]                      ");/* OS_pstrHighestReadyTCB */
+  asm("  STR R1, [R3]                      ");/* put the highest TCB instead of Current */
+  asm("  LDR R0, [R1]                      ");/* OS_pstrHighestReadyTCB Task SP*/
+  asm("  LDMIA R0!, {R4-R11, R14}          ");
+  asm("  MSR PSP, R0                       ");
+  asm("  BX R14                            ");
 }/* PendSV_Handler */
 /* //////////////////////////////////////////////////////////////////////////// */

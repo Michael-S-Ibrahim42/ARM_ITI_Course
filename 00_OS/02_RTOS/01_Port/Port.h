@@ -12,13 +12,13 @@
   /* /////////////////////////////////// MACROS ///////////////////////////////// */
   #define Port_vidDisableInterrupt()                        \
   {													                                \
-    asm("MOVS R7, #0x50");					              		      \
-    asm("MSR  BASEPRI, R7");					            		      \
+    asm("MOV  R4, #0x50   ");					              		      \
+    asm("MSR  BASEPRI, R4 ");					            		      \
   }     
   #define Port_vidEnableInterrupt()                         \
   {													                                \
-    asm("MOVS R7  , #0x00");							                  \
-    asm("MSR  BASEPRI, R7");  						                  \
+    asm("MOV  R4, #0x00   ");							                  \
+    asm("MSR  BASEPRI, R4 ");  						                  \
   }  
   /* Triggering PendSV */   
   #define Port_vidTaskSwitch()                              \
