@@ -54,7 +54,7 @@ void OS_vidCreateTask(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_TaskS
     Port_vidEnableInterrupt();
   }/* if */
 }/* OS_vidCreateTask */
-strTCB_t* OS_pstrTaskInit(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_TaskStack, u32 Copy_TaskStackSize)
+static strTCB_t* OS_pstrTaskInit(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_TaskStack, u32 Copy_TaskStackSize)
 {
   strTCB_t* Loc_pstrAllocatedTCB = NULL;
   if(OS_TCB_Index != OS_u8TASKS_MAX)
@@ -109,7 +109,7 @@ void OS_vidStart(void)
   OS_enuOS_State = enuOS_State_On;
   Port_vidStartFirstTask();
 }/* OS_vidStart */
-void OS_vidRunIdle_T(void)
+static void OS_vidRunIdle_T(void)
 {
   while(1)
   {

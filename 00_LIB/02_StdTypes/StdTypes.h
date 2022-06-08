@@ -53,14 +53,18 @@
   typedef void (*pfTask_t)(void);
   typedef struct tcb
   {
-    volatile u32*        TaskSP;
-    volatile u32         TaskStackSize;
-    volatile struct tcb* Next;
-    volatile struct tcb* Prev;
-    volatile pfTask_t    Task;
-    volatile u32         TaskPri;
-    volatile u32         WaitTicks;
+    u32*        TaskSP;
+    u32         TaskStackSize;
+    struct tcb* Next;
+    struct tcb* Prev;
+    pfTask_t    Task;
+    u32         TaskPri;
+    u32         WaitTicks;
   }strTCB_t;
+  typedef struct ossem
+  {
+
+  }strOSSem_t;
   typedef enum
   {
     enuOrderType_Pri,

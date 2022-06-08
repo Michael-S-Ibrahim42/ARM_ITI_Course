@@ -9,9 +9,7 @@
 #define _CORE_H
   /* //////////////////////// Interface Fns ///////////////////////////////// */
   void OS_vidCreateTask(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_TaskStack, u32 Copy_TaskStackSize);
-  strTCB_t* OS_pstrTaskInit(pfTask_t Copy_pfTask, u32 Copy_u32TaskPri, u32* Copy_TaskStack, u32 Copy_TaskStackSize);
   void OS_vidDelay(u32 Copy_u32WaitTicks);
   void OS_vidStart(void);
-  void OS_vidRunIdle_T(void);
   /* //////////////////////////////////////////////////////////////////////// */
 #endif

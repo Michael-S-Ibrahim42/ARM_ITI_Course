@@ -12,14 +12,5 @@
   #define OS_u8IDLE_TASK_STACK_SIZE           ((u8)(85))
   /* ****Caution**** : Don't forget to configure the systick clock with your system clock */
   #define OS_u16TICK_TIME                     ((u16)(1))
-                    
-                    
   /* /////////////////////////////////////////////////////////////////////// */
 #endif
-
-
-
-            // /* Define your clock in 'MHZ' */
-            // #define OS_u8CPU_CLOCK                      ((u8)(16))
-            // /* Define the OS tick rate in 'HZ' */
-            // #define OS_u16TICK_RATE                     ((u16)(1000))
