@@ -10,5 +10,6 @@
   /* /////////////////////////////// Interface Fns //////////////////////// */
   void List_vidInsert(strTCB_t** Copy_ppstrList, strTCB_t* Copy_pstrNode, enuOrderType_t Copy_enuOrderType);
   strTCB_t* List_pstrExtractHead(strTCB_t** Copy_ppstrList); 
+  void List_vidDelete(strTCB_t** Copy_ppstrList, strTCB_t* Copy_pstrNode);
   /* ////////////////////////////////////////////////////////////////////// */
 #endif

@@ -51,6 +51,23 @@
   /* /////////////////////////////////////// OS Standard Types ////////////////////////////////// */
   /* Defined Types */
   typedef void (*pfTask_t)(void);
+  typedef enum
+  {
+    enuStatus_Nok,
+    enuStatus_Ok
+  }enuStatus_t;
+  typedef enum 
+  {
+    enuSemType_Binary, 
+    enuSemType_Counting, 
+    enuSemType_Mutex
+  }enuSemType_t;
+  typedef struct ossem
+  {
+    enuSemType_t SemType;
+    u32          SemValue;
+    struct tcb*  SemOwner;
+  }strOSSem_t;
   typedef struct tcb
   {
     u32*        TaskSP;
@@ -58,13 +75,11 @@
     struct tcb* Next;
     struct tcb* Prev;
     pfTask_t    Task;
+    u32         TaskBasePri;
     u32         TaskPri;
     u32         WaitTicks;
+    strOSSem_t* Sem;
   }strTCB_t;
-  typedef struct ossem
-  {
-
-  }strOSSem_t;
   typedef enum
   {
     enuOrderType_Pri,

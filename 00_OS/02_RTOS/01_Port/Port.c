@@ -68,6 +68,10 @@ void Port_vidSystickCallback(void)
     {
       Loc_pstrTCB_Traverser = List_pstrExtractHead(&OS_pstrWaitingList);
       List_vidInsert(&OS_pstrReadyList, Loc_pstrTCB_Traverser, enuOrderType_Pri);
+      if(Loc_pstrTCB_Traverser->Sem != NULL)
+      {
+        Loc_pstrTCB_Traverser->Sem = NULL;
+      }/* if */
       Loc_pstrTCB_Traverser = OS_pstrWaitingList;
     }/* if */
     else

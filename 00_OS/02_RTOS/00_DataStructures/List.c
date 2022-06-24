@@ -97,4 +97,36 @@ strTCB_t* List_pstrExtractHead(strTCB_t** Copy_ppstrList)
 
   return(Loc_pstrHead);
 }/* List_pstrExtractHead */
+void List_vidDelete(strTCB_t** Copy_ppstrList, strTCB_t* Copy_pstrNode)
+{
+  if((*Copy_ppstrList != NULL) && (Copy_pstrNode != NULL))
+  {
+    if((Copy_pstrNode->Prev == NULL) && (Copy_pstrNode->Next == NULL))
+    {
+      (*Copy_ppstrList) = NULL;
+    }/* if */
+    else if((Copy_pstrNode->Prev != NULL) && (Copy_pstrNode->Next != NULL))
+    {
+      Copy_pstrNode->Prev->Next = Copy_pstrNode->Next;
+      Copy_pstrNode->Next->Prev = Copy_pstrNode->Prev;
+      Copy_pstrNode->Next = NULL;
+      Copy_pstrNode->Prev = NULL;
+    }/* else if */
+    else if(Copy_pstrNode->Next == NULL)
+    {
+      Copy_pstrNode->Prev->Next = NULL;
+      Copy_pstrNode->Prev = NULL;
+    }/* else if */
+    else if(Copy_pstrNode->Prev == NULL)
+    {
+      (*Copy_ppstrList) = Copy_pstrNode->Next;
+      Copy_pstrNode->Next->Prev = NULL;
+      Copy_pstrNode->Next = NULL;
+    }/* else if */
+    else
+    {
+      /* MISRA */
+    }/* else */
+  }/* if */
+}/* List_vidDelete */
 /* ////////////////////////////////////////////////////////////////////// */

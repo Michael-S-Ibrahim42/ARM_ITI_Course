@@ -21,7 +21,7 @@
 #define SIZE				10
 /* //////////////////////////////// Global Variables //////////////////////////////////////// */
 static u8 State = LED_u8OFF;
-u8 Characters[SIZE] = {0};
+u8 Characters[SIZE] = {1,2,3,4,5,6,7,8,9,10};
 /* ////////////////////////////////////////////////////////////////////////////////////////// */
 USART_tstrSpecs Loc_strUSART_Specs =
 {
@@ -50,12 +50,12 @@ int main(void)
 	};
 	GPIO_tstrPinConfig Loc_strTxConfig =
 	{
-		.Mode = GPIO_u8AF,       /* select of the 'Available Modes' in GPIO.h          , under 'STD types options' section*/
+		.Mode    = GPIO_u8AF,       /* select of the 'Available Modes' in GPIO.h          , under 'STD types options' section*/
 		.OutType = GPIO_u8PUSH_PULL,    /* select of the 'Available Out Types' in GPIO.h      , under 'STD types options' section */
 		.OutSpeed= GPIO_u8LOW_SPEED,   /* select of the 'Available Out Speed' in GPIO.h      , under 'STD types options' section  */
 		.PullRes = GPIO_u8NO_PUPD,    /* select of the 'Available Pull Resistors' in GPIO.h , under 'STD types options' section*/
-		.Pins = GPIO_u16PIN9,       /* select of the 'Available Pins' in GPIO.h           , under 'STD types options' section*/
-		.Port = GPIO_u16PORT0
+		.Pins    = GPIO_u16PIN9,       /* select of the 'Available Pins' in GPIO.h           , under 'STD types options' section*/
+		.Port    = GPIO_u16PORT0
 	};
 	GPIO_tstrPinConfig Loc_strRxConfig =
 	{
@@ -79,7 +79,7 @@ int main(void)
 
   for(; Loc_u16Counter < SIZE; Loc_u16Counter++)
   {
-	  Characters[Loc_u16Counter] = '0';
+	  Characters[Loc_u16Counter] = '5';
   }
 
   Led_enuInit();
@@ -91,8 +91,8 @@ int main(void)
   GPIO_enuSelectAF(&Loc_strRxAFPin, 7);
 
   USART_enuInit(&Loc_strUSART_Specs, &Loc_strUSART_Config);
-//  USART_enuSendBufferZeroCopy(&Loc_strUSART_Specs);
-  USART_enuReceiveBuffer(&Loc_strUSART_Specs);
+  USART_enuSendBufferZeroCopy(&Loc_strUSART_Specs);
+//  USART_enuReceiveBuffer(&Loc_strUSART_Specs);
   while(1)
   {
 	  Led_enuSet(LED_u8MIL,State);
